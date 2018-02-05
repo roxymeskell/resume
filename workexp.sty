@@ -1,0 +1,167 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{workexp}[2016/09/22 Resume Work Experience Package]
+
+\RequirePackage{resutil}
+\RequirePackage{listHelper}
+\RequirePackage{arrayjob}
+\RequirePackage{multido}
+\RequirePackage[shortlabels]{enumitem}
+
+% Internal toggle for space between work experience
+%\newif\ifwork@longbf
+%\work@longbftrue
+%\newcommand{\work@space}{%
+%	\ifwork@longbf
+%	\else%
+%		\vspace*{-\baselineskip}%
+%	\fi%
+%}
+%\newcommand{\work@lastlong}{%
+%	\work@longbftrue
+%}
+%\newcommand{\work@lastshort}{%
+%	\work@longbffalse
+%}
+
+% Toggle for expanding work experience
+%\newif\ifexwork
+%\exworktrue
+%\newcommand{\toggleexpandwork}{
+%	\ifexwork
+%		\exworkfalse
+%	\else
+%		\exworktrue
+%	\fi
+%}
+%\newcommand{\expandworkon}{\exworktrue}
+%\newcommand{\expandworkoff}{\exworkfalse}
+
+% List for projects
+\newlist{worklist}{itemize}{3}
+\setlist[worklist]{label=\enskip,leftmargin=0.4in,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+\fixinnerlist{worklist}
+
+\def\fwork@expand{def}
+
+% % % %
+
+\def\fwork#1{%
+	\@ifnextchar[%
+	{\fwork@i{#1}}%
+	{\fwork@i{#1}[]}%
+}
+\def\fwork@i#1[#2]{%
+	\@ifnextchar[%
+	{\fwork@ii{#1}[#2]}%
+	{\fwork@ii{#1}[#2][]}%
+}
+\def\fwork@ii#1[#2][#3]{%
+	\@ifnextchar[%
+	{\fwork@iii{#1}[#2][#3]}%
+	{\fwork@iii{#1}[#2][#3][]}%
+}
+\def\fwork@iii#1[#2][#3][#4]{%
+	\@ifnextchar[%
+	{\fwork@iiii{#1}[#2][#3][#4]}%
+	{\fwork@iiii{#1}[#2][#3][#4][]}%
+}
+\def\fwork@iiii#1[#2][#3][#4][#5]{%
+	\startchunk%
+	\textbf{#1}\ifnotempty{#2}{ - #2}\ifnotempty{#3}{\hfill#3}\par%
+	\ifexpanded%
+		\nopagebreak
+		\ifnotempty{#4}{#4\par\nopagebreak}
+		\def\temp{#5}\ifx\temp\empty%
+		\else%
+			\newarray\Desc
+			\readarray{Desc}{#5}
+			\begin{worklist}%
+				\multido{\iDesc=1+1}{8}{%
+					\arrValToItem{Desc}{\iDesc}
+				}
+			\end{worklist}%
+			\delarray\Desc
+		\fi
+	\fi%
+	\endchunk
+}
+
+
+% % % %
+
+%\def\fwork#1{%
+%	\@ifnextchar[%
+%	{\fwork@i{#1}}%
+%	{%
+%		\work@space
+%		\work@lastshort%
+%		\textbf{#1}\par\vspace{\baselineskip}
+%	}%
+%}
+%\def\fwork@i#1[#2]{%
+%	\@ifnextchar[%
+%	{\fwork@ii{#1}[#2]}%
+%	{%
+%		\work@space
+%		\work@lastshort%
+%		\textbf{#1} - #2\par\vspace{\baselineskip}
+%	}%
+%}
+%\def\fwork@ii#1[#2][#3]{%
+%	\@ifnextchar[%
+%	{\fwork@iii{#1}[#2][#3]}%
+%	{%
+%		\work@space
+%		\work@lastshort%
+%		\textbf{#1} - #2\hfill#3\\
+%	}%
+%}
+%\def\fwork@iii#1[#2][#3][#4]{%
+%	\@ifnextchar[%
+%	{\fwork@iiii{#1}[#2][#3][#4]}%
+%	{%
+%	\work@space
+%	\textbf{#1} - #2\hfill#3\\%
+%	\ifexwork%
+%		\nopagebreak
+%		#4\par\vspace{\baselineskip}
+%		\work@lastlong
+%	\else%
+%		\work@lastshort
+%		\par\vspace{\baselineskip}
+%	\fi%
+%	}
+%}
+%\def\fwork@iiii#1[#2][#3][#4][#5]{%
+%	\work@space
+%	\textbf{#1} - #2\hfill#3\\%
+%	\ifexwork%
+%	\nopagebreak
+%	#4\\\nopagebreak
+%	\newarray\Desc
+%	\readarray{Desc}{#5}
+%	\begin{worklist}%
+%		\multido{\iDesc=1+1}{8}{%
+%			\checkDesc(\iDesc)
+%			\ifemptydata
+%			\else
+%			\item‘\Desc(\iDesc)’
+%			\clrarray{Desc}(\iDesc)
+%			\fi
+%		}
+%	\end{worklist}%
+%	\delarray\Desc
+%	\work@lastlong
+%	\vspace{\baselineskip}
+%	\else%
+%	\work@lastshort
+%	\par\vspace{\baselineskip}
+%	\fi%
+%}
+
+%\textbf{Intuit} - Mountian View, CA
+%\hfill January 2016 - July 2016\\
+%Software Engineer Co-op\par
+
+
+\endinput

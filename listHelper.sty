@@ -1,0 +1,23 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{listHelper}[2016/09/22 List Helper Commands Package]
+
+% This macro alters a list by removing some of the space that follows the list
+\newcommand*\fixendlist[1]{%
+	\expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+	\expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+
+% These macros help ensure that items in outer-type lists do not get
+% separated from the next line by a page break
+\let\originalItem\item
+\newcommand*\fixouterlist[1]{%
+	\expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
+	\expandafter\def\csname #1\endcsname{\csname preFixOuterList#1\endcsname\let\oldItem\item\def\item{\pagebreak[2]\oldItem}}
+	\expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
+	\expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
+\newcommand*\fixinnerlist[1]{%
+	\expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
+	\expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
+	\expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
+	\expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+\endinput

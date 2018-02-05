@@ -1,0 +1,98 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{projects}[2016/09/22 Resume Project Package]
+
+\RequirePackage{listHelper}
+\RequirePackage{arrayjob}
+\RequirePackage{multido}
+\RequirePackage[shortlabels]{enumitem}
+
+% Toggle for expanding projects
+\newif\ifexproj
+\exprojtrue
+\newcommand{\toggleexpandproj}{
+	\ifexpproj
+		\exprojfalse
+	\else
+		\exprojtrue
+	\fi
+}
+\newcommand{\expandprojon}{\exprojtrue}
+\newcommand{\expandprojoff}{\exprojfalse}
+
+% Internal toggle for space between projects
+\newif\ifproject@longbf
+%\project@longbffalse
+\project@longbftrue
+\newcommand{\project@space}{%
+	\ifproject@longbf%
+	\else%
+		\vspace*{-0.5\baselineskip}%
+	\fi%
+}
+\newcommand{\project@lastlong}{%
+	\project@longbftrue
+}
+\newcommand{\project@lastshort}{%
+	\project@longbffalse
+}
+
+% List for projects
+\newlist{projectlist}{itemize}{3}
+\setlist[projectlist]{label=\enskip\textendash,leftmargin=0.4in,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+\fixinnerlist{projectlist}
+
+\def\fproj#1{%
+	\@ifnextchar[%
+	{\fproj@i{#1}}%
+	{%
+		\project@space
+		\project@lastshort%
+		\textbf{#1}\par\vspace{0.5\baselineskip}
+	}%
+}
+\def\fproj@i#1[#2]{%
+	\@ifnextchar[%
+	{\fproj@ii{#1}[#2]}%
+	{%
+		\project@space
+		\project@lastshort%
+		\textbf{#1} (#2)\par\vspace{0.5\baselineskip}
+	}%
+}
+\def\fproj@ii#1[#2][#3]{%
+	\@ifnextchar[%
+	{\fproj@iii{#1}[#2][#3]}%
+	{%
+		\project@space
+		\project@lastshort%
+		\textbf{#1} (#2, #3)\par\vspace{0.5\baselineskip}
+	}%
+}
+\def\fproj@iii#1[#2][#3][#4]{%
+	\project@space%
+	\textbf{#1} (#2, #3)%
+	\ifexproj%
+		\nopagebreak
+		\newarray\Desc
+		\readarray{Desc}{#4}
+		\begin{projectlist}%
+			\multido{\iDesc=1+1}{8}{%
+				\checkDesc(\iDesc)
+				\ifemptydata
+				\else
+				\item‘\Desc(\iDesc)’
+				\clrarray{Desc}(\iDesc)
+				\fi
+			}%
+		\end{projectlist}%
+		\delarray\Desc
+		\vspace{0.5\baselineskip}%
+		\project@lastlong%
+	\else%
+		\project@lastshort%
+		\par\vspace{0.5\baselineskip}%
+	\fi%
+}
+
+
+\endinput

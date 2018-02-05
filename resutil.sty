@@ -1,0 +1,99 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{resutil}[2016/09/22 Resume Utility Package]
+
+% UTILITIES NEEDED
+% - Space between sections (\vspace{0.5\baselineskip})
+% - Space between section chunks (\vspace{0.5\baselineskip})
+% - Unspace between small section chunks (\vspace{-0.5\baselineskip})
+
+\newif\ifresutil@sectstr
+\newif\ifresutil@expchunkbf
+\newif\ifresutil@expandchunk
+
+\resutil@sectstrfalse
+\resutil@expchunkbftrue
+\resutil@expandchunktrue
+
+\def\startchunk{
+	\ifresutil@sectstr
+	\else
+		\ifresutil@expchunkbf
+		\else
+			\vspace*{-0.5\baselineskip}
+		\fi
+	\fi
+}
+\def\endchunk{
+	\ifresutil@sectstr%
+	\resutil@sectstrfalse%
+	\fi%
+	\par\vspace*{0.5\baselineskip}%
+	\ifresutil@expandchunk%
+		\resutil@expchunkbftrue%
+	\else%
+		\resutil@expchunkbffalse%
+	\fi
+}
+
+\def\startsection{%
+	\resutil@sectstrtrue%
+	\resutil@expchunkbffalse%
+	\resutil@expandchunktrue%
+	\vspace*{0.5\baselineskip}%
+}
+
+\def\toggleexpand{%
+	\ifresutil@expandchunk
+		\resutil@expandchunktrue
+	\else
+		\resutil@expandchunkfalse
+	\fi
+}
+\def\toggleexpandon{%
+	\resutil@expandchunktrue
+}
+\def\toggleexpandoff{%
+	\resutil@expandchunkfalse
+}
+
+%\def\ifnotempty#1#2{%
+\newcommand{\ifnotempty}[2]{%
+	\def\temp{#1}\ifx\temp\empty%
+	\else#2\fi%
+}
+
+\newcommand{\ifexpanded}{\ifresutil@expandchunk}
+
+\RequirePackage{arrayjob}
+%\def\arrValToItem#1#2{%
+\newcommand{\arrValToItem}[2]{%
+	\csname check#1\endcsname(#2)
+	\ifemptydata\else%
+		\item‘\csname #1\endcsname(#2)’
+		\clrarray{#1}(#2)%
+	\fi%
+}
+
+%\checkDesc(\iDesc)
+%\ifemptydata
+%\else
+%\item‘\Desc(\iDesc)’
+%\clrarray{Desc}(\iDesc)
+%\fi
+
+
+%\work@longbftrue
+%\newcommand{\work@space}{%
+%	\ifwork@longbf
+%	\else%
+%	\vspace*{-\baselineskip}%
+%	\fi%
+%}
+%\newcommand{\work@lastlong}{%
+%	\work@longbftrue
+%}
+%\newcommand{\work@lastshort}{%
+%	\work@longbffalse
+%}
+
+\endinput

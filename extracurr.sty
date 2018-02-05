@@ -1,0 +1,81 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{extracurr}[2016/09/22 Resume Extracurricular Package]
+
+\RequirePackage{listHelper}
+\RequirePackage{arrayjob}
+\RequirePackage{multido}
+\RequirePackage[shortlabels]{enumitem}
+
+% Internal toggle for space between work experience
+\newif\ifextracurr@longbf
+\extracurr@longbftrue
+\newcommand{\extracurr@space}{%
+	\ifextracurr@longbf
+	\else%
+		\vspace*{-\baselineskip}%
+	\fi%
+}
+\newcommand{\extracurr@lastlong}{%
+	\extracurr@longbftrue
+}
+\newcommand{\extracurr@lastshort}{%
+	\extracurr@longbffalse
+}
+
+% Toggle for expanding work experience
+\newif\ifexextracurr
+\exextracurrtrue
+\newcommand{\toggleexpandexc}{
+	\ifexextracurr
+		\exextracurrfalse
+	\else
+		\exextracurrtrue
+	\fi
+}
+\newcommand{\expandexcon}{\exextracurrtrue}
+\newcommand{\expandexcoff}{\exextracurrfalse}
+
+\def\fextracurr#1{%
+	\@ifnextchar[%
+	{\fextracurr@i{#1}}%
+	{%
+		\extracurr@space
+		\extracurr@lastshort%
+		\textbf{#1}\par\vspace{\baselineskip}
+	}%
+}
+\def\fextracurr@i#1[#2]{%
+	\@ifnextchar[%
+	{\fextracurr@ii{#1}[#2]}%
+	{%
+		\extracurr@space
+		\extracurr@lastshort%
+		\textbf{#1}\hfill#2\par\vspace{\baselineskip}
+	}%
+}
+\def\fextracurr@ii#1[#2][#3]{%
+	\@ifnextchar[%
+	{\fextracurr@iii{#1}[#2][#3]}%
+	{%
+		\extracurr@space
+		\extracurr@lastshort%
+		\textbf{#1}\hfill#2\par
+		\def\temp{#3}\ifx\temp\empty%
+			\vspace{\baselineskip}
+		\else
+			\strut\hfill#3\par\vspace{\baselineskip}
+		\fi
+	}%
+}
+\def\fextracurr@ii#1[#2][#3][#4]{%
+		\extracurr@space
+		\extracurr@lastshort%
+		\textbf{#1}\hfill#2\par
+		\def\temp{#3}\ifx\temp\empty %
+		\else
+			\strut\hfill#3\par
+		\fi
+		#4\par\vspace{\baselineskip}
+}
+
+\endinput
