@@ -6,7 +6,8 @@
 \usepackage[paper=letterpaper,
 			marginparwidth=1.4in,     % Length of section titles
 			marginparsep=.05in,     % Space between titles and text
-			margin=.4in,            % 1 inch margins
+			%margin=.4in,
+			top=.4in, right=.4in, left=.4in, bottom=0in,
 			includemp]{geometry}
 \usepackage[shortlabels]{enumitem}
 \usepackage{fancyhdr}
@@ -227,10 +228,18 @@
 
 \begin{document}
 	%%\thispagestyle{plain}
-	\makeheading{Roxanna Meskell}
+	%\makeheading{Roxanna Meskell} %
 	%
-	\vspace*{0.5\baselineskip}\section{Contact Information}
-	
+	%
+	\hspace*{-\marginparsep minus \marginparwidth}%
+	\begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+		%{\LARGE \bfseries Roxanna Meskell \hfill}\\ %[-0.15\baselineskip]%
+		{\LARGE \bfseries Roxanna Meskell}%
+		%\\ %[-0.15\baselineskip]%
+		\hspace*{1em}Rochester, NY\hspace*{.5em}\textbar\hspace*{.5em}770-356-1249\hspace*{.5em}\textbar\hspace*{.5em}rlm1388@rit.edu\hspace*{.5em}\textbar\hspace*{.5em}github.com/roxymeskell
+		\\[-0.5\baselineskip]
+		\rule{\columnwidth}{1pt}%
+	\end{minipage}
 	% NOTE: Mind where the & separators and \\ breaks are in the following
 	%       table. Table is one row made up of three parboxes. The left
 	%       parbox has address info, the middle parbox has a vertical bar,
@@ -244,43 +253,50 @@
 	%             boundary between boxes.
 	%
 	\newlength{\rcollength}\setlength{\rcollength}{2in}%
-	\newlength{\spacewidth}\setlength{\spacewidth}{20pt}
-	\newcommand\spacechar{$|$}
+	\newlength{\spacewidth}\setlength{\spacewidth}{20pt}%
+	\newcommand\spacechar{$|$}%
 	%
-	\begin{tabular}[t]{@{}p{\textwidth-\rcollength-\spacewidth}@{}p{\spacewidth}@{}p{\rcollength}}%
-		
-		% Address box
-		\parbox{\textwidth-\rcollength-\spacewidth}{%
-			2380A Scottsville Rd.\\
-			Scottsville, NY 14546\\}
-		
-		% Cheesy perforated vertical bar between boxes
-		% Shorten by removing \spacechar's
-		& \parbox{\spacewidth}{\centering} &
-		
-		% Non-snail-mail contact information
-		\parbox{\rcollength}{%
-			%\emph{Phone:} 
-			770-356-1249\\
-			%\emph{E-mail:}
-			\email{rlm1388@rit.edu}\\
-			github.com/roxymeskell\\
-		}
-		
-	\end{tabular}
-	
+	%
+	%\vspace*{0.5\baselineskip}%
+	%
+%	\section{Contact Information}
+%	
+%	\begin{tabular}[t]{@{}p{\textwidth-\rcollength-\spacewidth}@{}p{\spacewidth}@{}p{\rcollength}}%
+%		
+%		% Address box
+%		\parbox{\textwidth-\rcollength-\spacewidth}{%
+%			2380A Scottsville Rd.\\
+%			Scottsville, NY 14546\\}
+%		
+%		% Cheesy perforated vertical bar between boxes
+%		% Shorten by removing \spacechar's
+%		& \parbox{\spacewidth}{\centering} &
+%		
+%		% Non-snail-mail contact information
+%		\parbox{\rcollength}{%
+%			%\emph{Phone:} 
+%			770-356-1249\\
+%			%\emph{E-mail:}
+%			\email{rlm1388@rit.edu}\\
+%			github.com/roxymeskell\\
+%		}
+%		
+%	\end{tabular}
+	%
 	%%
 	%% In modern CV's, it seems like ``Objective'' is frowned upon. Instead,
 	%% incorporate it into a well-constructed cover letter. The ``More
 	%% information'' can go at the end of the CV, but it should not distract
 	%% from the section giving references available to contact.
 	%%
-	%
-	\section{Objective}
+	%\vspace*{0.5\baselineskip}%
+	\vspace*{-0.25\baselineskip}%
+	\section{Objective}%
 	%Interested in a single or double block co-op for 2016 working as a software developer.
-	Looking for a single or double block co-op for Spring, Summer, and/or Fall 2017 in a computer science field in order to expand my skill set and gain real world experience.
+	%Looking for a single or double block co-op for Spring, Summer, and/or Fall 2017 in a computer science field in order to expand my skill set and gain real world experience.
+	Motivated, experienced undergraduate senior seeking a full time position working as a Software Engineer starting June, 2018.
 	
-	\vspace*{0.5\baselineskip}\section{Education}
+	\vspace*{0.25\baselineskip}\section{Education}
 	
 	\textbf{Rochester Institute of Technology}
 	- Rochester, NY
@@ -289,13 +305,13 @@
 		%\item []
 		\begin{innerlist}
 			\item Major: B.S. Computer Science
-			\item Expected Graduation Date: June 2018
+			\item Expected Graduation Date: May 2018
 		\end{innerlist}
 	%\end{outerlist}
 	
 
 	
-	\vspace*{0.5\baselineskip}\section{Skills}
+	\vspace*{0.25\baselineskip}\section{Skills}
 	\setlength{\columnsep}{4pc}
 	\setlength{\multicolsep}{0.2pc}
 	\begin{multicols}{3}
@@ -304,7 +320,7 @@
 		\textbf{Languages}:
 		\begin{multicols}{2}
 			\begin{loneinnerlist}
-				\item C
+				\item C/C++
 				\item Java
 				\item Javascript
 				\item C\#
@@ -312,6 +328,7 @@
 				\item Haskell
 				\item SQL
 				\item Python
+				\item PHP
 				\item HTML
 				\item CSS
 				%\item \LaTeX
@@ -321,21 +338,25 @@
 		\textbf{Tools}:
 		\begin{multicols}{2}
 			\begin{loneinnerlist}
-				\item gdb
+				\item CI/CD Pipelines
 				\item git
-				\item vim
+				%\item vim
+				\item gdb
 				\item grunt
 				%\item postgreSQL
-				\item Django
+				%\item Django
 				%\columnbreak
 				%\item Eclipse
 				%\item Netbeans
 				%\item Visual Studio
-				\item nodeJS
-				\item reactJS
+				\item NodeJS
+				\item ReactJS
+				\item AngularJS
 				%\item Microsoft Office
-				\item MatLab
+				%\item MatLab
 				%\item Android\\Studio
+				\item \LaTeX
+				\item Tableau
 			\end{loneinnerlist}
 		\end{multicols}
 		\columnbreak
@@ -344,7 +365,7 @@
 			\begin{loneinnerlist}
 				\item Windows
 				\item Linux
-				\item Mac OS X
+				\item macOS~X
 				\item[]
 				\item[]
 				\columnbreak
@@ -354,17 +375,35 @@
 				\item[]
 				\item[]
 			\end{loneinnerlist}
-		\end{multicols}
-	\end{multicols}
-	
-	\vspace{-0.5\baselineskip}
-	
-	\section{Projects}
-	
-	\fproj{Song Database}[Data Management][Fall 2014][‘Language: Java&PostgreSQL database&Group project&Stores information for songs and playlists&Wrote majority of the SQL code for the database’]
+		\end{multicols}%
+	\end{multicols}%
+	%
+	\vspace{-.75\baselineskip}%
+		%\hyphenation{customers}
+		%\vspace{0.5\baselineskip}%
+		\section{Work Experience}
+		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][‘Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.’]%
+		% Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Work consisted ot designing databases, developing REST APIs, and front-end feature developement.
+		% Also set up CI pipelines to generate documentation for our main code database.
+		% Also worked to set up a system to keep projects documented.
+		%
+		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][‘Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in Javascript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS. ({\it fixit.intuit.com})’]%
+		%  {\it fixit.intuit.com}
+		% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella 
+		%\vspace{-\baselineskip}
+		\fwork{Siemens Industry}[Norcross, GA][June 2012 - July 2012][Business Intern]%
+	%
+	%\vspace*{0.25\baselineskip}
+	\section{Projects}%
+	\fproj{Tangram Piece Detector}[Computer Vision][Fall 2016][‘Language: MatLab&Research project&Used computer vision concepts to find and identify pieces of a tangram puzzle&Implemented generic Hough Transform’]%
+	%
+	\fproj{Song Database}[Data Management][Fall 2014][‘Language: Java&PostgreSQL database&Group project&Stores information for songs and playlists&Wrote majority of the SQL code for the database’]%
+	%
 	\fproj{Threaded Multidimensional Maze Generator}[Personal][2014 - Ongoing][‘Language: C&Uses binary division to generate maze&Plans to be able generate a maze spanning at least 16 dimensions&Plans to be able to output maze to a file’]
-	\fproj{Maze Generation Simulator}[Personal][2013 - Ongoing][‘Language: Java&Shows the progression of mazes as they are generated using different algorithms&Intended for use during a seminar’]
 	\expandprojoff
+	\fproj{Maze Generation Simulator}[Personal][2013 - Ongoing][‘Language: Java&Shows the progression of mazes as they are generated using different algorithms&Intended for use during a seminar’]
+	\fproj{Car Accidents vs. Rain}[Data Mining][Fall 2016][‘Aimed at related accidents in New York to rain fall’]%
+	%
 	\fproj{Multidimensional Maze Generator}[Personal][2013 - 2014][‘Language: C\#&Uses Eller's Algorithm to randomly generate a maze spanning up to 16 dimensions&Maze is viewable and able to be transversed in the console’]
 	\fproj{Ingredient Organizer App}[Personal][2015 - Ongoing][‘Language: Java&PostgresSQL database&For Android&Stores recipes and tracks ingredients user has on hand’]
 	%\fproj{Maze Generation Simulator}[Personal][2013 - Ongoing][‘Language: C\#&Shows the progression of mazes as they are generated using different algorithms&Uses windows forms’]
@@ -377,16 +416,18 @@
 	\vspace{-0.25\baselineskip}
 	\begin{columns}{2}
 		\begin{innerlist}
-			\item Intro to Computer Vision
+			\item Foundations of Computer Vision
+			\item Advanced Computer Vision
+			\item Principles of Data Mining
 			\item Intelligent Systems
 			\item Concepts of Parallel \& Distributed Systems
 			\item Concepts of Computer Systems
-			\item Analysis of Algorithms
-			\item Mechanics of Programming
-			\item Data Management
-			\item Programming Language Concepts
-			\item Computer Science Theory
-			\item Software Engineering
+			%\item Analysis of Algorithms
+			%\item Mechanics of Programming
+			%\item Data Management
+			%\item Programming Language Concepts
+			%\item Computer Science Theory
+			%\item Software Engineering
 			%\item Financial Accounting
 			%\item Professional Communications
 			%\item Multivar & Vector Calculus
@@ -395,13 +436,7 @@
 			%\item Organizational Behavior
 		\end{innerlist}
 	\end{columns}
-	
-	\hyphenation{customers}
-	\vspace{0.5\baselineskip}\section{Work Experience}
-	\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][‘Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in javascript, as well as testing of current features.&Also worked on side project to create a browser based diagnostic tool using reactJS. {\it fixit.intuit.com}’]
-	% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella 
-	\vspace{-\baselineskip}
-	\fwork{Siemens Industry}[Norcross, GA][June 2012 - July 2012][Business Intern]
+
 	\section{Extracurricular}
 	\expandexcoff%
 	\fextracurr{Computer Science House (CSH)}[Fall 2013 - Present][][]
