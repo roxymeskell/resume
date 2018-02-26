@@ -5,4 +5,4 @@ before_install:
   texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended
 script:
 - mkdir _build
-- pdflatex -interaction=nonstopmode -output-directory _build resume.tex
+- pdflatex -interaction=nonstopmode -output-directory _build -file-line-error resume.tex
