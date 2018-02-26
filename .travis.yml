@@ -6,3 +6,5 @@ before_install:
 script:
 - mkdir _build
 - pdflatex -interaction=nonstopmode -output-directory _build -file-line-error resume.tex
+after_failure:
+- cat _build/resume.log
