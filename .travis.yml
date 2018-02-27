@@ -2,9 +2,9 @@ sudo: required
 dist: trusty
 before_install:
 - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
-  texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended
+  texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-generic-recommended
 script:
 - mkdir _build
-- pdflatex -interaction=nonstopmode -output-directory _build -file-line-error resume.tex
+- pdflatex -interaction=nonstopmode -output-directory _build resume.tex
 after_failure:
-- cat _build/resume.log
+- grep -w "! LaTeX Error" _build/resume.log
