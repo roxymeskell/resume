@@ -15,3 +15,6 @@ deploy:
   file: _build/resume.pdf
   on:
     repo: roxymeskell/resume
+    branches:
+      only:
+        - master
