@@ -10,8 +10,9 @@ after_failure:
 - grep -w "! LaTeX Error" _build/resume.log
 deploy:
   provider: releases
-  api_key:
-    secure: c3b876bfcb5c233de930d265d1acdf9a818fa025
+  user: roxymeskell
+  password:
+    secure: aNf049NEtyREwlMpyDnZzKPel7uEiPz9SYGnarywfBsRuXmyR/+Od2D+NNzDAPviXzVFTc4exzifBQcmRb8by0X+6ghK+55Svx8PyPIcRWKh+o7aS3K2XY1vtI2iqsbFBSW3Y4vl+iGG1V3DadtNDKW7Cn8/whHTYdLqBgs2pFAytR5Cy96xQVXpnpTF6opzwY8FRof8878phaHX20C+fWwNLQjgZTqtmGrlBXXkqO86p1KdgdUTaK92HUPwSOkvr8yBj9iMfydzpqGsLXQr5OArofz529Zp5NXssYumoAxziEXkaOJr18Ewig9K3S+uWWBYeku8Q4mDvD9z5CSHX9adSYg6PmCaqKo+sUvxp/MUf7D49EyA2Z12rQruHYn8LNsU2OcgUFtLRR8RLxdZKA3hX/RPRYkvUNdc3X2nlM/slSShLOkdJiuDRHxB6a2BLjV2r5jzn5175X8GgZh0viQKZv2cyVgOJPe6lbNIUiuq7F9oGEbkmNqbS+8tgfzwoseQX2BqV0B5zUXll8Ednne7yicbVUQHzBaTFwtnriONDCzDRA4a7p64x5IY0M1dEIlafWHgb7cwces31Pg9QHV8jj0g07VGbKKo8TrQmW4SHkIiKL2PT3vU8Ahid+4qh79zYxF9cgMieEwnTDVApzild6pxsQO92mRZD3I3kUg=
   file:
   - _build/resume.pdf
   skip_cleanup: true
