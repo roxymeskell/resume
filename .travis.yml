@@ -8,3 +8,12 @@ script:
 - pdflatex -interaction=nonstopmode -output-directory _build resume.tex
 after_failure:
 - grep -w "! LaTeX Error" _build/resume.log
+deploy:
+  provider: releases
+  api_key:
+    secure: c3b876bfcb5c233de930d265d1acdf9a818fa025
+  file:
+  - _build/resume.pdf
+  skip_cleanup: true
+  on:
+    tags: true
