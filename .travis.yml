@@ -4,9 +4,7 @@ before_install:
 - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
   texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-generic-recommended
 script:
-- mkdir _build
-- pdflatex -interaction=nonstopmode -output-directory _build resume.tex
-- ./setup_pages.sh
+- ./build.sh
 after_failure:
 - grep -w "! LaTeX Error" _build/resume.log
 deploy:

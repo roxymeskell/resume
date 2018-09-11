@@ -4,6 +4,10 @@ set -e # Quit on error
 
 SHA=`git rev-parse --short --verify HEAD` # Save object name of the current commit
 
+# Compile
+mkdir _build
+pdflatex -interaction=nonstopmode -output-directory _build resume.tex
+
 # Create everything for gh-pages
 mkdir pages
 cp ./_build/resume.pdf ./pages/resume.pdf
