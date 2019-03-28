@@ -2,6 +2,7 @@
 \usepackage{calc} % This is a helpful package that puts math inside length specifications
 \usepackage{etoolbox}
 \usepackage{multicol} % Allows multicolumn formatting
+\usepackage{vwcol}  % Allows unevenly width'd multicolumn formatting...?
 \reversemarginpar % Puts the section titles on left side of page
 \usepackage[paper=letterpaper,
 			marginparwidth=1.4in,     % Length of section titles
@@ -236,7 +237,7 @@
 		%{\LARGE \bfseries Roxanna Meskell \hfill}\\ %[-0.15\baselineskip]%
 		{\LARGE \bfseries Roxanna Meskell}%
 		%\\ %[-0.15\baselineskip]%
-		\hspace*{1em}Rochester, NY\hspace*{.5em}\textbar\hspace*{.5em}770-356-1249\hspace*{.5em}\textbar\hspace*{.5em}rlm1388@rit.edu\hspace*{.5em}\textbar\hspace*{.5em}github.com/roxymeskell
+		\hspace*{1em}Rochester, NY\hspace*{.5em}\textbar\hspace*{.5em}770-356-1249\hspace*{.5em}\textbar\hspace*{.5em}roxy.meskell@gmail.com\hspace*{.5em}\textbar\hspace*{.5em}github.com/roxymeskell
 		\\[-0.5\baselineskip]
 		\rule{\columnwidth}{1pt}%
 	\end{minipage}
@@ -295,30 +296,36 @@
 	%Interested in a single or double block co-op for 2016 working as a software developer.
 	%Looking for a single or double block co-op for Spring, Summer, and/or Fall 2017 in a computer science field in order to expand my skill set and gain real world experience.
 	%Motivated, experienced undergraduate senior seeking a full time position working as a Software Engineer starting June, 2018.
-	Motivated, experienced undergraduate senior seeking a full or part-time position working as a Software Engineer.
+	%Motivated, experienced undergraduate senior seeking a full or part-time position working as a Software Engineer.
+	Motivated, experienced software developer seeking new, enriching opportunities in front end or full stack development.
 	
 	\vspace*{0.25\baselineskip}\section{Education}
 	
 	\textbf{Rochester Institute of Technology}
 	- Rochester, NY
-	\hfill September 2013 - Present
+	\hfill September 2013 - 2018
 	%\begin{outerlist}
 		%\item []
 		\begin{innerlist}
 			\item Major: B.S. Computer Science
-			\item Expected Graduation Date: May 2018
+			\item 127 Credits Completed
 		\end{innerlist}
 	%\end{outerlist}
 	
 
 	
-	\vspace*{0.25\baselineskip}\section{Skills}
-	\setlength{\columnsep}{4pc}
-	\setlength{\multicolsep}{0.2pc}
-	\begin{multicols}{3}
-		\setlength{\multicolsep}{0.5pc}
-		\setlength{\columnsep}{1pc}
+	\vspace*{0.25\baselineskip}\section{Skills}%
+	\setlength{\columnsep}{1pc}%{4pc}
+	\setlength{\multicolsep}{1pc}%
+	%
+	\begin{minipage}[c]{\linewidth}
+	%\begin{vwcol}[widths={0.3,0.6,0.2}, sep=.5pc, lines=5, justify=flush,rule=0pt,indent=1em]
+	\begin{multicols*}{3}%
+		\setlength{\multicolsep}{0.5pc}%
+		\setlength{\columnsep}{1pc}%
+		%\begin{minipage}[c]{0.25\linewidth}
 		\textbf{Languages}:
+		\setlength\multicolsep{0pt}
 		\begin{multicols}{2}
 			\begin{loneinnerlist}
 				\item C/C++
@@ -331,64 +338,84 @@
 				\item Python
 				\item PHP
 				\item HTML
-				\item CSS
+				\item CSS/SCSS
 				%\item \LaTeX
 			\end{loneinnerlist}
 		\end{multicols}
+		%\end{minipage}%
 		\columnbreak
+		%\begin{minipage}[c]{0.4\linewidth}
 		\textbf{Tools}:
+		\setlength\multicolsep{0pt}
 		\begin{multicols}{2}
 			\begin{loneinnerlist}
+				\item Rails
+				\item NodeJS
+				\item ReactJS
 				\item CI/CD Pipelines
+				%\columnbreak
 				\item git
 				%\item vim
-				\item gdb
+				%\item gdb
+				\item GraphQL
+				\item postgreSQL
+				\item InfluxDB
+				\item webpack
 				\item grunt
-				%\item postgreSQL
 				%\item Django
 				%\columnbreak
 				%\item Eclipse
 				%\item Netbeans
 				%\item Visual Studio
-				\item NodeJS
-				\item ReactJS
-				\item AngularJS
+				%\item AngularJS
 				%\item Microsoft Office
 				%\item MatLab
 				%\item Android\\Studio
 				\item \LaTeX
-				\item Tableau
+				%\item Tableau
 			\end{loneinnerlist}
 		\end{multicols}
+		%\end{minipage} %
 		\columnbreak
+		%\begin{minipage}[c]{0.1\linewidth}
 		\textbf{Operating Systems}:
-		\begin{multicols}{2}
+		%\begin{multicols}{1}
 			\begin{loneinnerlist}
 				\item Windows
 				\item Linux
 				\item macOS~X
 				\item[]
 				\item[]
-				\columnbreak
-				\item[]
-				\item[]
-				\item[]
-				\item[]
-				\item[]
+				%\columnbreak
+				%\item[]
+				%\item[]
+				%\item[]
+				%\item[]
+				%\item[]
 			\end{loneinnerlist}
-		\end{multicols}%
-	\end{multicols}%
+		%\end{multicols}%
+		%\end{minipage}
+	\end{multicols*}%
+	\end{minipage}%
+	\vspace*{0.25\baselineskip}
+	%\end{vwcol}%
 	%
-	\vspace{-.75\baselineskip}%
+	%\vspace{-.75\baselineskip}%
 		%\hyphenation{customers}
 		%\vspace{0.5\baselineskip}%
 		\section{Work Experience}
-		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][‘Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.’]%
+		\fwork{Calvary Robotics}[Rochester, NY][September 2018 - Current][Controls Software Engineer][%
+		Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.
+		%Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking software platform for industrial manufacturing machines. %
+		%full stack application built with react, python, SSR, NodeJS, etc 
+		%Architected, implemented, and tested an embedded, OPC UA based, industrial internet of things (IIoT) performance tracking software platform for industrial manufacturing machines.
+		]%
+		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.]%
 		% Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Work consisted ot designing databases, developing REST APIs, and front-end feature developement.
 		% Also set up CI pipelines to generate documentation for our main code database.
 		% Also worked to set up a system to keep projects documented.
 		%
-		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][‘Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in Javascript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS. ({\it fixit.intuit.com})’]%
+		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in Javascript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS. ({\it fixit.intuit.com})]%
 		%  {\it fixit.intuit.com}
 		% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella 
 		%\vspace{-\baselineskip}
@@ -396,53 +423,53 @@
 	%
 	%\vspace*{0.25\baselineskip}
 	\section{Projects}%
-	\fproj{Tangram Piece Detector}[Computer Vision][Fall 2016][‘Language: MatLab&Research project&Used computer vision concepts to find and identify pieces of a tangram puzzle&Implemented generic Hough Transform’]%
+	\fproj{Where to Find Brunch}[Personal][2018 - Current][Language: Ruby&Uses Rails&Uses Yelp's GraphQL API&Randomly generates a place to got to brunch based on a location or zipcode]
+	\fproj{Tangram Piece Detector}[Computer Vision][Fall 2016][Language: MatLab&Research project&Used computer vision concepts to find and identify pieces of a tangram puzzle&Implemented generic Hough Transform]%
+	%
+	\fproj{Threaded Multidimensional Maze Generator}[Personal][2014 - Current][Language: C&Uses binary division to generate maze&Plans to be able generate a maze spanning at least 16 dimensions&Plans to be able to output maze to a file]
+	\expandprojoff
 	%
 	\fproj{Song Database}[Data Management][Fall 2014][‘Language: Java&PostgreSQL database&Group project&Stores information for songs and playlists&Wrote majority of the SQL code for the database’]%
-	%
-	\fproj{Threaded Multidimensional Maze Generator}[Personal][2014 - Ongoing][‘Language: C&Uses binary division to generate maze&Plans to be able generate a maze spanning at least 16 dimensions&Plans to be able to output maze to a file’]
-	\expandprojoff
-	\fproj{Maze Generation Simulator}[Personal][2013 - Ongoing][‘Language: Java&Shows the progression of mazes as they are generated using different algorithms&Intended for use during a seminar’]
+	\fproj{Maze Generation Simulator}[Personal][2013][‘Language: Java&Shows the progression of mazes as they are generated using different algorithms&Intended for use during a seminar’]
 	\fproj{Car Accidents vs. Rain}[Data Mining][Fall 2016][‘Aimed at related accidents in New York to rain fall’]%
 	%
 	\fproj{Multidimensional Maze Generator}[Personal][2013 - 2014][‘Language: C\#&Uses Eller's Algorithm to randomly generate a maze spanning up to 16 dimensions&Maze is viewable and able to be transversed in the console’]
-	\fproj{Ingredient Organizer App}[Personal][2015 - Ongoing][‘Language: Java&PostgresSQL database&For Android&Stores recipes and tracks ingredients user has on hand’]
-	%\fproj{Maze Generation Simulator}[Personal][2013 - Ongoing][‘Language: C\#&Shows the progression of mazes as they are generated using different algorithms&Uses windows forms’]
+	%\fproj{Ingredient Organizer App}[Personal][2015][‘Language: Java&PostgresSQL database&For Android&Stores recipes and tracks ingredients user has on hand’]
 	\fproj{Intelligent Clue Player}[Intelligent Systems][Spring 2015][‘Language: Java&Coded player for Clue to make the most optimal move and win nearly every game’]
 	\fproj{Healthnet}[Software Engineering][Fall 2015][‘Language: Python, HTML, CSS&Uses Django&Group project&A website to track patient and medical staff information for hospitals’]
 	\fproj{Assembly Sudoku Solver}[Concepts of Computer Systems][Fall 2015][‘Language: MIPS Assembly&A program to solve and display sudoku puzzles written completely in assembly.’]
 	%
 	%
-	\section{Coursework}
-	\vspace{-0.25\baselineskip}
-	\begin{columns}{2}
-		\begin{innerlist}
-			\item Foundations of Computer Vision
-			\item Advanced Computer Vision
-			\item Principles of Data Mining
-			\item Intelligent Systems
-			\item Concepts of Parallel \& Distributed Systems
-			\item Concepts of Computer Systems
-			%\item Analysis of Algorithms
-			%\item Mechanics of Programming
-			%\item Data Management
-			%\item Programming Language Concepts
-			%\item Computer Science Theory
-			%\item Software Engineering
-			%\item Financial Accounting
-			%\item Professional Communications
-			%\item Multivar & Vector Calculus
-			%\item Graph Theory
-			%\item Principles of Marketing
-			%\item Organizational Behavior
-		\end{innerlist}
-	\end{columns}
+%	\section{Coursework}
+%	\vspace{-0.25\baselineskip}
+%	\begin{columns}{2}
+%		\begin{innerlist}
+%			\item Foundations of Computer Vision
+%			\item Advanced Computer Vision
+%			\item Principles of Data Mining
+%			\item Intelligent Systems
+%			\item Concepts of Parallel \& Distributed Systems
+%			\item Concepts of Computer Systems
+%			%\item Analysis of Algorithms
+%			%\item Mechanics of Programming
+%			%\item Data Management
+%			%\item Programming Language Concepts
+%			%\item Computer Science Theory
+%			%\item Software Engineering
+%			%\item Financial Accounting
+%			%\item Professional Communications
+%			%\item Multivar & Vector Calculus
+%			%\item Graph Theory
+%			%\item Principles of Marketing
+%			%\item Organizational Behavior
+%		\end{innerlist}
+%	\end{columns}
 
 	\section{Extracurricular}
 	\expandexcoff%
-	\fextracurr{Computer Science House (CSH)}[Fall 2013 - Present][][]
-	\fextracurr{Society of Software Engineers (SSE)}[Fall 2015 - Present][][]
-	\fextracurr{FIRST Robotics (Highschool)}[Fall 2011 - Spring 2013][][]
+	\fextracurr{Computer Science House (CSH)}[Fall 2013 - 2018][][]
+	\fextracurr{Society of Software Engineers (SSE)}[Fall 2015 - 2017][][]
+	%\fextracurr{FIRST Robotics (Highschool)}[Fall 2011 - Spring 2013][][]
 
 	\halfblankline
 	
