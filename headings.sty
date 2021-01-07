@@ -1,0 +1,105 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{headings}[2018/07/31 Resume Headings Package]
+
+\RequirePackage{kvoptions}
+\RequirePackage{fancyhdr}
+\RequirePackage{fontawesome}
+\RequirePackage{mdframed}
+\RequirePackage{ifthen}
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linkcolor=black,   
+    urlcolor=black,
+}
+
+%% PACKAGE OPTIONS
+\DeclareBoolOption[true]{resume}
+\DeclareComplementaryOption{coverletter}{resume}
+
+\ProcessKeyvalOptions{headings}
+
+%% Setter commands to make changing info easier
+\newcommand\setname[1]{\edef\resume@name{#1}}
+\newcommand\setlocation[1]{\edef\resume@location{#1}}
+\newcommand\setphone[1]{\edef\resume@phone{#1}}
+\newcommand\setemail[1]{\edef\resume@email{#1}}
+\newcommand\setgithub[1]{\edef\resume@github{#1}}
+\newcommand\setlinkedin[1]{\edef\resume@linkedin{#1}}
+
+%% Defines spacing between header info
+\def\resume@headinginfosep{\hspace*{.3em}\textbar\hspace*{.3em}}
+
+%% Getters for use in heading
+\def\heading@name{\ifthenelse{\isundefined{\resume@name}}{John Snow}{\resume@name}\hspace*{.5em}}
+\def\heading@location{\ifthenelse{\isundefined{\resume@location}}{}{\resume@location}}
+\def\heading@phone{\ifthenelse{\isundefined{\resume@phone}}{}{%
+    \ifthenelse{\isundefined{\resume@location}}{}{\resume@headinginfosep}%
+    \faPhone\hspace*{.25em}\resume@phone%
+}}
+\def\heading@email{\ifthenelse{\isundefined{\resume@email}}{}{%
+    \ifthenelse{\isundefined{\resume@location}\and\isundefined{\resume@phone}}{}{\resume@headinginfosep}%
+    \faEnvelope\hspace*{.25em}%\resume@email%
+    \href{mailto:\resume@email}{\resume@email}%
+}}
+\def\heading@github{\ifthenelse{\isundefined{\resume@github}}{}{%
+    \ifthenelse{\isundefined{\resume@location}\and\isundefined{\resume@phone}\and\isundefined{\resume@email}}{}{\resume@headinginfosep}%
+    \faGithub\hspace*{.25em}%\resume@github%
+    \href{https://github.com/\resume@github}{\resume@github}%
+}}
+\def\heading@linkedin{\ifthenelse{\isundefined{\resume@linkedin}}{}{%
+    \ifthenelse{\isundefined{\resume@location}\and\isundefined{\resume@phone}\and\isundefined{\resume@email}\and\isundefined{\resume@github}}{}{\resume@headinginfosep}%
+    \faLinkedin\hspace*{.25em}%\resume@linkedin%
+    \href{https://linkedin.com/in/\resume@linkedin}{\resume@linkedin}%
+}}
+
+%% Set up header
+\fancyhf{}
+%\fancyheadoffset[lh,rh]{.85in} % FOR COVER LETTER
+%\fancyheadoffset[lh]{1.45in} % FOR RESUME
+%\fancyheadoffset[lh]{1.55in}
+%\fancyheadoffset[rh]{.15in}
+\ifheadings@resume%
+%\fancyheadoffset[lh]{\marginparwidth + \marginparsep}%
+\fancyheadoffset[lh]{1.45in}%
+\else%
+\fancyheadoffset[lh,rh]{.85in}%
+\fi%
+
+\renewcommand{\headrule}{}
+
+\fancyhead[L]{%
+\begin{mdframed}[%
+    skipabove=0pt,skipbelow=0pt,
+    leftmargin=0pt,rightmargin=0pt,%
+    innertopmargin=0pt,innerbottommargin=0pt,%
+    innerleftmargin=0pt,innerrightmargin=0pt,%
+    linewidth=1pt,%
+    leftline=false,rightline=false,topline=false%
+]%
+{\Large\bfseries\heading@name}%
+\heading@location%
+\heading@phone%
+\heading@email%
+\heading@github%
+\heading@linkedin%
+\vspace{0.1\baselineskip}%
+\end{mdframed}%
+}
+
+
+%%% SECTION HEADINGS
+
+\ifheadings@resume
+% The section headings. Flush left in small caps down pseudo-margin.
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+	%\vspace{1\baselineskip}%
+	\par %\vspace*{0.5\baselineskip}\startsection
+	%\startsection\vspace*{0.5\baselineskip}
+	\phantomsection\addcontentsline{toc}{section}{#1}%
+	\noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
+	\vspace{-\baselineskip}\par}
+	
+\fi
