@@ -1,0 +1,114 @@
+% RESUME DOCUMENT STYLE
+% Copyright (C) 2019 by Roxanna Meskell
+
+\typeout{Document Style `resume' <24 Apr 19>.}
+
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesClass{resume}[2019/04/24 Resume]
+\LoadClass[10pt]{article}
+\reversemarginpar % Puts the section titles on left side of page
+
+\RequirePackage{kvoptions}
+
+\RequirePackage[
+    paper=letterpaper, margin=.4in,
+    headheight=1.2em, headsep=0.75em, includehead
+]{geometry}
+
+%% OPTIONS
+% Show frame / bounding boxes?
+% Is coverletter..?
+%  * Center on page?
+% Font size?
+%  * Header font size
+%  * Header info font size
+%  * Header info subfont size
+% Margins?
+% Section title width?
+% SeperationAnsd
+
+\DeclareBoolOption[false]{showframe}
+\DeclareBoolOption[false]{showboundingboxes}
+
+\DeclareBoolOption[true]{resume}
+\DeclareComplementaryOption{coverletter}{resume}
+
+\ProcessKeyvalOptions*
+
+
+%% SET UP PAGE
+\ifresume@resume
+    %\setlength{\headeroffset}{\marginparwidth + \marginparsep}
+    \geometry{
+        top=.4in, right=.4in, left=.4in, bottom=0in,
+        marginparwidth=1.4in, marginparsep=.05in,
+        includemp
+    }
+    %\reversemarginpar % Puts the section titles on left side of page
+\else
+    \setlength{\headeroffset}{.85in}
+    \geometry{
+        top=.4in, bottom=.79in, right=1.25in, left=1.25in,
+        headheight=0.25in, headsep=0.14in
+    }
+\fi
+
+
+
+%% SET UP FRAME / BOUND BOXES IF SHOWN
+\ifresume@showframe\geometry{showframe}\fi
+\ifresume@showboundingboxes
+% SHOWS MARGIN AND OTHER BOUNDING BOXES FROM RESUME
+\RequirePackage{tikz}
+\RequirePackage[pages=all]{background}
+\RequirePackage{color}
+
+% 1em = 10pt = 0.13847in...?
+% Baselineskip=12pt ~= 0.207705in ~- .2in
+\backgroundsetup{
+scale=1,
+color=black,
+opacity=0.6,
+angle=0,
+contents={%
+  %\resizebox{\paperwidth}{\paperheight}{%
+    \begin {tikzpicture}
+      \draw[red](0,-0.4in) -- ++ (\paperwidth,0);
+      \draw[purple](0,-0.4in-1.2em) -- ++ (\paperwidth,0);
+      %\draw[blue](0,-.65in) -- ++ (\paperwidth,0);
+      %\draw[blue](0,-0.4in-1.2em-6pt) -- ++ (\paperwidth,0); % 1.5\baselineskip
+      %\draw[green](0,-0.65in-0.07in) -- ++ (\paperwidth,0);
+      \draw[green](0,-0.4in-1.95em) -- ++ (\paperwidth,0);
+      %
+      \draw[red](0.4in,0) -- ++ (0, -\paperheight);
+      \draw[green](\paperwidth-0.4in,0) -- ++ (0, -\paperheight);
+      \draw[purple](1.8in,0) -- ++ (0, -\paperheight);
+      \draw[cyan](1.85in,0) -- ++ (0, -\paperheight);
+      \draw[blue](0,0) -- ++ (\paperwidth,-\paperheight);
+    \end {tikzpicture}
+    %}%
+  }%
+}
+\fi
+
+
+
+%% REQUIRE PACKAGES
+\PassOptionsToPackage{resume}{headings}
+\RequirePackage{headings}
+\ifresume@resume
+    \RequirePackage{resutil}
+    \RequirePackage{projects}
+    \RequirePackage{workexp}
+    \RequirePackage{extracurr}
+\fi
+
+%% OPTIONS AFTER LOADING
+% Need to set name
+% Need to set location
+% Need to set phone
+% Need to set email
+% Need to set github
+% Need to set linkedin
+% All of the above part of header
