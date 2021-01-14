@@ -69,7 +69,7 @@
 \newcommand{\arrValToItem}[2]{%
 	\csname check#1\endcsname(#2)
 	\ifemptydata\else%
-		\item‘\csname #1\endcsname(#2)’
+		\item{\csname #1\endcsname(#2)}
 		\clrarray{#1}(#2)%
 	\fi%
 }

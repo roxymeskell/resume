@@ -3,3 +3,8 @@
 *.aux
 *.log
 *.out
+*.dvi
+*.fls
+*.fdb_latexmk
+*.txt
+resume-cache.yaml
