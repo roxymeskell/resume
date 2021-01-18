@@ -8,3 +8,5 @@
 *.fdb_latexmk
 *.txt
 resume-cache.yaml
+_build
+pages

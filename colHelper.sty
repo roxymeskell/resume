@@ -1,0 +1,48 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{colHelper}[2021/01/18 Resume Column Helper Package]
+
+\RequirePackage{kvoptions}
+\RequirePackage{multicol} % Allows multicolumn formatting
+\RequirePackage{vwcol}  % Allows unevenly width'd multicolumn formatting...?
+
+%% PACKAGE OPTIONS
+\DeclareBoolOption[false]{showboundingboxes}
+\ProcessKeyvalOptions{colHelper}
+
+%% NEW ENVIRONMENT
+\newenvironment{columns}[1]
+{
+	\newcounter{columnCount}
+	\newenvironment{column}[1]
+	{
+		\textbf{##1}
+	}
+	{
+		\ifnumcomp{\value{columnCount}}{>}{#1-1}{}{\columnbreak}
+		\stepcounter{columnCount}
+	}
+	\newenvironment{listcolumn}[1]
+	{
+		\textbf{##1}
+		\begin{innerlist}
+	}
+	{
+		\end{innerlist}
+		\ifnumcomp{\value{columnCount}}{>}{#1-1}{}{\columnbreak}
+		\stepcounter{columnCount}
+	}
+	\begin{multicols}{#1}
+}
+{
+	\end{multicols}
+}
+
+%% If show bounding boxes
+\ifcolHelper@showboundingboxes
+  \RequirePackage{color}
+  %\addtolength{\columnsep}{-1pt}
+  %\setlength{\columnseprule}{1pt}
+  \setlength{\columnseprule}{\columnsep}%
+  \setlength{\columnsep}{0pt}%
+  \def\columnseprulecolor{\color{blue!25}}%
+\fi

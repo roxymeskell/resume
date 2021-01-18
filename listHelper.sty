@@ -1,10 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{listHelper}[2016/09/22 List Helper Commands Package]
 
+\RequirePackage[shortlabels]{enumitem}
+
 % This macro alters a list by removing some of the space that follows the list
-\newcommand*\fixendlist[1]{%
-	\expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
-	\expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+%\newcommand*\fixendlist[1]{%
+% \expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+% \expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+\newcommand*\fixendlist[2][0.6]{%
+	\expandafter\let\csname preFixEndListend#2\expandafter\endcsname\csname end#2\endcsname
+	\expandafter\def\csname end#2\endcsname{\csname preFixEndListend#2\endcsname\vspace{-#1\baselineskip}}}
 
 % These macros help ensure that items in outer-type lists do not get
 % separated from the next line by a page break
@@ -19,5 +24,51 @@
 	\expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
 	\expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
 	\expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+
+% An itemize-style list with lots of space between items
+%
+% Usage:
+%   \begin{outerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{outerlist}
+\newlist{outerlist}{itemize}{3}
+\setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
+\fixendlist{outerlist}
+\fixouterlist{outerlist}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{lonelist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{lonelist}
+\newlist{lonelist}{itemize}{3}
+\setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
+\fixendlist{lonelist}
+\fixouterlist{lonelist}
+
+% An itemize-style list with little space between items
+%
+% Usage:
+%   \begin{innerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{innerlist}
+\newlist{innerlist}{itemize}{3}
+\setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+\fixinnerlist{innerlist}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{loneinnerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{loneinnerlist}
+\newlist{loneinnerlist}{itemize}{3}
+\setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+\fixendlist{loneinnerlist}
+\fixinnerlist{loneinnerlist}
 
 \endinput
