@@ -1,35 +1,22 @@
-\documentclass[10pt]{article} % Don't like 10pt? Try 11pt or 12pt
+%\documentclass[showframe,showboundingboxes]{resume}
+\documentclass{resume}
 \usepackage{calc} % This is a helpful package that puts math inside length specifications
 \usepackage{etoolbox}
-\usepackage{multicol} % Allows multicolumn formatting
-\usepackage{vwcol}  % Allows unevenly width'd multicolumn formatting...?
-\reversemarginpar % Puts the section titles on left side of page
-\usepackage[paper=letterpaper,
-			marginparwidth=1.4in,     % Length of section titles
-			marginparsep=.05in,     % Space between titles and text
-			%margin=.4in,
-			top=.4in, right=.4in, left=.4in, bottom=0in,
-			includemp]{geometry}
 \usepackage[shortlabels]{enumitem}
-\usepackage{fancyhdr}
-\usepackage{color,hyperref}
 
-
-\usepackage{resutil}
-\usepackage{projects}
-\usepackage{workexp}
-\usepackage{extracurr}
+%%%%%%%%%%%%%%%%%%%%%%%% Set Header Values %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setname{Roxanna Meskell}
+\setlocation{Rochester, NY}
+\setphone{770-356-1249}
+\setemail{roxy.meskell@gmail.com}
+\setgithub{roxymeskell}
+\setlinkedin{roxanna-meskell}
 
 %\usepackage{pdftexcmds} % Package for switch statements
 
-\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
-\hypersetup{breaklinks,colorlinks,
-	linkcolor=black,urlcolor=black,
-	anchorcolor=black,citecolor=black,
-}
-\pagestyle{empty}
-\setlength{\parindent}{0in} % Get rid of indenting throughout entire document
 
+\pagestyle{empty}\thispagestyle{fancy}%
+\setlength{\parindent}{0in} % Get rid of indenting throughout entire document
 
 % The OCR software also has a hard time with italics. These commands get
 % rid of the two common ways to italicize text in LaTeX. Get rid of them
@@ -40,154 +27,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%% HEADING AT TOP
-
-% The title (name) with a horizontal rule under it
-% (optional argument typesets an object right-justified across from name
-%  as well)
-%
-% Usage: \makeheading{name}
-%        OR
-%        \makeheading[right_object]{name}
-%
-% Place at top of document. It should be the first thing.
-% If ``right_object'' is provided in the square-braced optional
-% argument, it will be right justified on the same line as ``name'' at
-% the top of the CV. For example:
-%
-%       \makeheading[\emph{Curriculum vitae}]{Your Name}
-%
-% will put an emphasized ``Curriculum vitae'' at the top of the document
-% as a title. Likewise, a picture could be included:
-%
-%   \makeheading[\includegraphics[height=1.5in]{my_picutre}]{Your Name}
-%
-% the picture will be flush right across from the name.
-\newcommand{\makeheading}[2][]%
-{\hspace*{-\marginparsep minus \marginparwidth}%
-	\begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
-		{\LARGE \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
-		\rule{\columnwidth}{1pt}%
-	\end{minipage}}
-
-%%% SECTION HEADINGS
-
-% The section headings. Flush left in small caps down pseudo-margin.
-%
-% Usage: \section{section name}
-\renewcommand{\section}[1]{\pagebreak[3]%
-	%\vspace{1\baselineskip}%
-	\par %\vspace*{0.5\baselineskip}\startsection
-	%\startsection\vspace*{0.5\baselineskip}
-	\phantomsection\addcontentsline{toc}{section}{#1}%
-	\noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
-	\vspace{-\baselineskip}\par}
-
-%%% COLUMNS
-\newenvironment{columns}[1]
-{
-	\newcounter{columnCount}
-	\newenvironment{column}[1]
-	{
-		\textbf{##1}
-	}
-	{
-		\ifnumcomp{\value{columnCount}}{>}{#1-1}{}{\columnbreak}
-		\stepcounter{columnCount}
-	}
-	\newenvironment{listcolumn}[1]
-	{
-		\textbf{##1}
-		\begin{innerlist}
-	}
-	{
-		\end{innerlist}
-		\ifnumcomp{\value{columnCount}}{>}{#1-1}{}{\columnbreak}
-		\stepcounter{columnCount}
-	}
-	\begin{multicols}{#1}
-}
-{
-	\end{multicols}
-}
-
-%%%% LISTS
-%
-%% This macro alters a list by removing some of the space that follows the list
-%% (is used by lists below)
-%\newcommand*\fixendlist[1]{%
-%	\expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
-%	\expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
-%
-%% These macros help ensure that items in outer-type lists do not get
-%% separated from the next line by a page break
-%% (they are used by lists below)
-%\let\originalItem\item
-%\newcommand*\fixouterlist[1]{%
-%	\expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
-%	\expandafter\def\csname #1\endcsname{\csname preFixOuterList#1\endcsname\let\oldItem\item\def\item{\pagebreak[2]\oldItem}}
-%	\expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
-%	\expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
-%\newcommand*\fixinnerlist[1]{%
-%	\expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
-%	\expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
-%	\expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
-%	\expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
-
-% An itemize-style list with lots of space between items
-%
-% Usage:
-%   \begin{outerlist}
-%       \item ...    % (or \item[] for no bullet)
-%   \end{outerlist}
-\newlist{outerlist}{itemize}{3}
-\setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
-\fixendlist{outerlist}
-\fixouterlist{outerlist}
-
-% An environment IDENTICAL to outerlist that has better pre-list spacing
-% when used as the first thing in a \section
-%
-% Usage:
-%   \begin{lonelist}
-%       \item ...    % (or \item[] for no bullet)
-%   \end{lonelist}
-\newlist{lonelist}{itemize}{3}
-\setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
-\fixendlist{lonelist}
-\fixouterlist{lonelist}
-
-% An itemize-style list with little space between items
-%
-% Usage:
-%   \begin{innerlist}
-%       \item ...    % (or \item[] for no bullet)
-%   \end{innerlist}
-\newlist{innerlist}{itemize}{3}
-\setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
-\fixinnerlist{innerlist}
-
-% An environment IDENTICAL to innerlist that has better pre-list spacing
-% when used as the first thing in a \section
-%
-% Usage:
-%   \begin{loneinnerlist}
-%       \item ...    % (or \item[] for no bullet)
-%   \end{loneinnerlist}
-\newlist{loneinnerlist}{itemize}{3}
-\setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
-\fixendlist{loneinnerlist}
-\fixinnerlist{loneinnerlist}
-
-%% List for projects
-%%
-%%
-%\newlist{projectlist}{itemize}{3}
-%\setlist[projectlist]{label=\enskip\textendash,leftmargin=0.4in,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
-%\fixinnerlist{projectlist}
-
 %%% EXTRA SPACE
 
 % To add some paragraph space between lines.
@@ -197,20 +36,6 @@
 \newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
 
 %%% FORMATTING MACROS
-
-% Uses hyperref to link DOI
-\newcommand\doilink[1]{\href{http://dx.doi.org/#1}{#1}}
-\newcommand\doi[1]{doi:\doilink{#1}}
-
-% For \url{SOME_URL}, links SOME_URL to the url SOME_URL
-\providecommand*\url[1]{\href{#1}{#1}}
-% Same as above, but pretty-prints SOME_URL in teletype fixed-width font
-\renewcommand*\url[1]{\href{#1}{\texttt{#1}}}
-
-% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
-\providecommand*\email[1]{\href{mailto:#1}{#1}}
-% Same as above, but pretty-prints ADDRESS in teletype fixed-width font
-%\renewcommand*\email[1]{\href{mailto:#1}{\texttt{#1}}}
 
 %\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 %    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -232,15 +57,17 @@
 	%\makeheading{Roxanna Meskell} %
 	%
 	%
-	\hspace*{-\marginparsep minus \marginparwidth}%
-	\begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
-		%{\LARGE \bfseries Roxanna Meskell \hfill}\\ %[-0.15\baselineskip]%
-		{\LARGE \bfseries Roxanna Meskell}%
-		%\\ %[-0.15\baselineskip]%
-		\hspace*{1em}Rochester, NY\hspace*{.5em}\textbar\hspace*{.5em}770-356-1249\hspace*{.5em}\textbar\hspace*{.5em}roxy.meskell@gmail.com\hspace*{.5em}\textbar\hspace*{.5em}github.com/roxymeskell
-		\\[-0.5\baselineskip]
-		\rule{\columnwidth}{1pt}%
-	\end{minipage}
+
+	% \hspace*{-\marginparsep minus \marginparwidth}%
+	% \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+	% 	%{\LARGE \bfseries Roxanna Meskell \hfill}\\ %[-0.15\baselineskip]%
+	% 	{\LARGE \bfseries Roxanna Meskell}%
+	% 	%\\ %[-0.15\baselineskip]%
+	% 	\hspace*{1em}Rochester, NY\hspace*{.5em}\textbar\hspace*{.5em}770-356-1249\hspace*{.5em}\textbar\hspace*{.5em}roxy.meskell@gmail.com\hspace*{.5em}\textbar\hspace*{.5em}github.com/roxymeskell
+	% 	\\[-0.5\baselineskip]
+	% 	\rule{\columnwidth}{1pt}%
+	% \end{minipage}
+
 	% NOTE: Mind where the & separators and \\ breaks are in the following
 	%       table. Table is one row made up of three parboxes. The left
 	%       parbox has address info, the middle parbox has a vertical bar,
@@ -257,33 +84,6 @@
 	\newlength{\spacewidth}\setlength{\spacewidth}{20pt}%
 	\newcommand\spacechar{$|$}%
 	%
-	%
-	%\vspace*{0.5\baselineskip}%
-	%
-%	\section{Contact Information}
-%
-%	\begin{tabular}[t]{@{}p{\textwidth-\rcollength-\spacewidth}@{}p{\spacewidth}@{}p{\rcollength}}%
-%
-%		% Address box
-%		\parbox{\textwidth-\rcollength-\spacewidth}{%
-%			2380A Scottsville Rd.\\
-%			Scottsville, NY 14546\\}
-%
-%		% Cheesy perforated vertical bar between boxes
-%		% Shorten by removing \spacechar's
-%		& \parbox{\spacewidth}{\centering} &
-%
-%		% Non-snail-mail contact information
-%		\parbox{\rcollength}{%
-%			%\emph{Phone:}
-%			770-356-1249\\
-%			%\emph{E-mail:}
-%			\email{rlm1388@rit.edu}\\
-%			github.com/roxymeskell\\
-%		}
-%
-%	\end{tabular}
-	%
 	%%
 	%% In modern CV's, it seems like ``Objective'' is frowned upon. Instead,
 	%% incorporate it into a well-constructed cover letter. The ``More
@@ -291,7 +91,7 @@
 	%% from the section giving references available to contact.
 	%%
 	%\vspace*{0.5\baselineskip}%
-	\vspace*{-0.25\baselineskip}%
+	%\vspace*{-0.25\baselineskip}%
 	\section{Objective}%
 	%Interested in a single or double block co-op for 2016 working as a software developer.
 	%Looking for a single or double block co-op for Spring, Summer, and/or Fall 2017 in a computer science field in order to expand my skill set and gain real world experience.
@@ -299,7 +99,8 @@
 	%Motivated, experienced undergraduate senior seeking a full or part-time position working as a Software Engineer.
 	Motivated, experienced software developer seeking new, enriching opportunities in front end or full stack development.
 
-	\vspace*{0.25\baselineskip}\section{Education}
+	%\vspace*{0.25\baselineskip}%
+	\section{Education}%
 
 	\textbf{Rochester Institute of Technology}
 	- Rochester, NY
@@ -314,7 +115,8 @@
 
 
 
-	\vspace*{0.25\baselineskip}\section{Skills}%
+	%\vspace*{0.25\baselineskip}%
+	\section{Skills}%
 	\setlength{\columnsep}{1pc}%{4pc}
 	\setlength{\multicolsep}{1pc}%
 	%
@@ -330,7 +132,7 @@
 			\begin{loneinnerlist}
 				\item C/C++
 				\item Java
-				\item Javascript
+				\item JS/TS % Javascript
 				\item C\#
 				%\item MIPS
 				\item Haskell
@@ -359,9 +161,11 @@
 				%\item gdb
 				\item GraphQL
 				\item postgreSQL
+				\item MongoDB
 				\item InfluxDB
 				\item webpack
-				\item grunt
+				% item gulp
+				%\item grunt
 				%\item Django
 				%\columnbreak
 				%\item Eclipse
@@ -404,9 +208,11 @@
 		%\hyphenation{customers}
 		%\vspace{0.5\baselineskip}%
 		\section{Work Experience}
-		\fwork{Bryx}[Rochester, NY][October 2019 - Present][Software Engineer][%
-		Design, develop, and test new user interfaces for the Bryx911 web applications.%
-		Provide customer support to both Bryx911 and Bryx Staion users.%
+		\fwork{Bryx}[Rochester, NY][October 2019 - January 2021][Software Engineer][%
+		Designed, developed, and tested new user interfaces for Bryx911 web applications using Node and ReactJS. %
+		Modulized code into reusable packages. %
+		Set up tools and pipelines to automatically build, test, deploy, and generate documentation. %
+		Provided customer support to both Bryx911 and Bryx Station users.%
 		]%
 		\fwork{Calvary Robotics}[Rochester, NY][September 2018 - April 2019][Controls Software Engineer][%
 		Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
