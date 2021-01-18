@@ -38,11 +38,9 @@
 }
 
 %% If show bounding boxes
-\ifcolHelper@showboundingboxes
-  \RequirePackage{color}
-  %\addtolength{\columnsep}{-1pt}
-  %\setlength{\columnseprule}{1pt}
-  \setlength{\columnseprule}{\columnsep}%
-  \setlength{\columnsep}{0pt}%
-  \def\columnseprulecolor{\color{blue!25}}%
-\fi
+% \ifcolHelper@showboundingboxes
+%   \RequirePackage{color}
+%   \setlength{\columnseprule}{\columnsep}%
+%   \setlength{\columnsep}{0pt}%
+%   \def\columnseprulecolor{\color{blue!25}}%
+% \fi
