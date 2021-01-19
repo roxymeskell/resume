@@ -79,6 +79,9 @@ angle=0,
 contents={%
   %\resizebox{\paperwidth}{\painperheight}{%
     \begin {tikzpicture}
+      %%% GRID %%%
+      \draw[gray, step=1em] (0,0) grid (\paperwidth,-\paperheight);
+      %%%%%%%%%%%%
       %\message{^^JTMargin: \tmargin \top^^J}
       \draw[red](0,-1in-\topmargin) -- ++ (\paperwidth,0);
       %\draw[blue](0,-1in-\topmargin-18pt-1.2pt) -- ++ (\paperwidth,0);
