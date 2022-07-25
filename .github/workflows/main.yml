@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build & Deploy
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  build-resume:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: resume.tex
+          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=_build"
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: RESUME
+          path: _build/resume.pdf
+  deploy-to-github-pages:
+    runs-on: ubuntu-latest
+    needs: build-resume
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: RESUME
+          path: pages
+      - name: Create README.md
+        run: |
+             SHA=$(git rev-parse --short "$GITHUB_SHA")
+             echo "# Automatic build" > ./pages/README.md
+             echo "[View PDF](http:/roxymeskell.github.io/resume/resume.pdf)" >> ./pages/README.md
+             echo "Built from \`$SHA\`. See https://github.com/roxymeskell/resume/ for details." >> ./pages/README.md
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: pages
