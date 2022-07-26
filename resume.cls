@@ -74,6 +74,9 @@ angle=0,
 contents={%
   %\resizebox{\paperwidth}{\paperheight}{%
     \begin {tikzpicture}
+      %%% GRID %%%
+      \draw[gray, step=1em] (0,0) grid (\paperwidth,-\paperheight);
+      %%%%%%%%%%%%
       \draw[red](0,-0.4in) -- ++ (\paperwidth,0);
       \draw[purple](0,-0.4in-1.2em) -- ++ (\paperwidth,0);
       %\draw[blue](0,-.65in) -- ++ (\paperwidth,0);
