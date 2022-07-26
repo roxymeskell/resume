@@ -68,10 +68,11 @@
 }
 \def\fwork@iiii#1[#2][#3][#4][#5]{%
 	\startchunk%
-	\textbf{#1}\ifnotempty{#2}{ - #2}\ifnotempty{#3}{\hfill#3}\par%
+	\ifnotempty{#4}{\textbf{#4}\hspace*{.3em}\textbar\hspace*{.3em}}#1\ifnotempty{#2}{ - {\small #2}}\ifnotempty{#3}{\hfill#3}\par%
+	%\textbf{#1}\ifnotempty{#2}{ - #2}\ifnotempty{#3}{\hfill#3}\par%
 	\ifexpanded%
 		\nopagebreak
-		\ifnotempty{#4}{#4\par\nopagebreak}
+		% \ifnotempty{#4}{#4\par\nopagebreak}
 		\def\temp{#5}\ifx\temp\empty%
 		\else%
 			\newarray\Desc
