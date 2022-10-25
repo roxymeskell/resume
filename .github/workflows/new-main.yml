@@ -1,0 +1,24 @@
+name: Build & Deploy
+on:
+  push: # Triggers the workflow on push or pull request events
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+jobs:
+  build-resume:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: resume.tex
+          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=_build"
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: RESUME
+          path: _build/resume.pdf
+  call-deploy:
+    needs: build-resume
+    uses: ./.github/workflows/deploy-to-pages.yml
+    secrets: inherit
