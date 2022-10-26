@@ -1,49 +1,50 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Build & Deploy
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: [ "master" ]
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  push: # Triggers the workflow on push or pull request events
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+    inputs:
+      is_dry_run:
+        description: 'Dry run deploy to GitHub Pages'
+        default: true
+        required: true
+        type: boolean 
 jobs:
-  build-resume:
+  setup-env:
+    name: Setup env
     runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.setupenv.outputs.branch }}
+      short_sha: ${{ steps.setupenv.outputs.short_sha }}
+      filepath: ${{ steps.setupenv.outputs.filepath }}
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: resume.tex
-          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=_build"
-      - name: Upload artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: RESUME
-          path: _build/resume.pdf
-  deploy-to-github-pages:
-    runs-on: ubuntu-latest
-    needs: build-resume
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-      - name: Download artifact
-        uses: actions/download-artifact@master
-        with:
-          name: RESUME
-          path: pages
-      - name: Create README.md
+        uses: actions/checkout@v3
+      - name: Set env variables
+        id: setupenv
         run: |
-             SHA=$(git rev-parse --short "$GITHUB_SHA")
-             echo "# Automatic build" > ./pages/README.md
-             echo "[View PDF](http:/roxymeskell.github.io/resume/resume.pdf)" >> ./pages/README.md
-             echo "Built from \`$SHA\`. See https://github.com/roxymeskell/resume/ for details." >> ./pages/README.md
-      - name: Deploy to Github Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: pages
+          SHA=$(git rev-parse --short "$GITHUB_SHA")
+          echo "branch=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+          echo "short_sha=$SHA" >> $GITHUB_OUTPUT
+          echo "filepath=prev_builds/${GITHUB_REF_NAME}/${SHA}.pdf" >> $GITHUB_OUTPUT
+  call-build-resume:
+    needs: setup-env
+    uses: ./.github/workflows/build-resume.yml
+    secrets: inherit
+    with:
+      branch: ${{ needs.setup-env.outputs.branch }}
+      short_sha: ${{ needs.setup-env.outputs.short_sha }}
+      filepath: ${{ needs.setup-env.outputs.filepath }}
+  call-update-readme:
+    needs: setup-env
+    uses: ./.github/workflows/update-readme.yml
+    secrets: inherit
+    with:
+      branch: ${{ needs.setup-env.outputs.branch }}
+      short_sha: ${{ needs.setup-env.outputs.short_sha }}
+      filepath: ${{ needs.setup-env.outputs.filepath }}
+  call-deploy:
+    needs: [call-build-resume, call-update-readme]
+    uses: ./.github/workflows/deploy-to-pages.yml
+    secrets: inherit
+    with:
+      is_dry_run: ${{ inputs.is_dry_run }}

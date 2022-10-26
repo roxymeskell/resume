@@ -1,0 +1,28 @@
+name: Deploy to Github Pages
+on:
+  workflow_call:
+    inputs:
+      is_dry_run:
+        type: boolean
+        default: true
+jobs:
+  # New Deploy
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Setup repository (needed for deploy to pages)
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      # Download resume pdf  and updated README artifacts
+      - name: Download resume artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: resume-artifacts
+          path: pages/
+      # Deploy to pages
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: pages
+          dry-run: ${{ inputs.is_dry_run }}
