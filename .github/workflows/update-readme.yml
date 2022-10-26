@@ -1,0 +1,61 @@
+name: Update README
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+      short_sha:
+        required: true
+        type: string
+      filepath:
+        required: true
+        type: string
+jobs:
+  update_gh_pages_readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+      # Update/Create README
+      - name: Create README if doesn't exist
+        run: |
+             if test -f README.md; then
+                echo "# Automatic build" > ./README.md
+                echo "[View PDF](http://roxymeskell.github.io/resume/resume.pdf)  " >> ./README.md
+                echo "Built from \`0000000\`." >> ./README.md
+                echo "See https://github.com/roxymeskell/resume/ for details.  " >> ./README.md
+                echo "**Versions:**" >> ./README.md
+             fi
+      - name: Update README if master branch
+        if: inputs.branch == 'master'
+        run: |
+             sed -in "s/Built from \`[a-f0-9]{7}\`\./Built from \`${{ inputs.short_sha }}\`./" ./README.md
+      - name: Update README
+        run: |
+             if ! grep -Pzo "\*\*Versions:\*\*(\n\* [a-z_\-]+)*\n\* ${{ inputs.branch }}" ./README.md
+             then
+                 # Add branch to list
+                 sed -in "s/\*\*Versions:\*\*/\*\*Versions:\*\*\n\* ${{ inputs.branch }}/" ./README.md
+             fi
+             # Add commit and link
+             sed -i "s,* ${{ inputs.branch }},* ${{ inputs.branch }}\n  * [\`${{ inputs.short_sha }}\`](http://roxymeskell.github.io/resume/${{ inputs.filepath }})," ./README.md
+      # Upload as artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: resume-artifacts
+          path: README.md
+          retention-days: 1
+
+  # Usage:
+  # jobs:
+  #   call-update-readme:
+  #     uses: ./.github/workflows/update-readme.yml
+  #     secrets: inherit
+  #     with:
+  #       branch: ${{ env.branch }}
+  #       short_sha: ${{ env.short_sha }}
+  #       filepath: ${{ env.filepath }}

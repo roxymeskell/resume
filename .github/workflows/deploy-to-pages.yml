@@ -6,76 +6,25 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout pages
+      # Setup repository (needed for deploy to pages)
+      - name: Set up Git repository
         uses: actions/checkout@v3
-        with:
-          ref: gh-pages
-      # Set env variables
-      - name: Set env variables
-        run: |
-          SHA=$(git rev-parse --short "$GITHUB_SHA")
-          echo "branch=$GITHUB_REF_NAME" >> $GITHUB_ENV
-          echo "short_sha=$SHA" >> $GITHUB_ENV
-          echo "filepath=prev_builds/${GITHUB_REF_NAME}/${SHA}.pdf" >> $GITHUB_ENV
-      # Update/Create README
-      - name: Create README
-        run: |
-             if test -f README.md; then
-                echo "# Automatic build" > ./README.md
-                echo "[View PDF](http://roxymeskell.github.io/resume/resume.pdf)  " >> ./README.md
-                echo "Built from \`0000000\`." >> ./README.md
-                echo "See https://github.com/roxymeskell/resume/ for details.  " >> ./README.md
-                echo "**Versions:**" >> ./README.md
-             fi
-      - name: Update README if master branch
-        if: env.branch == 'master'
-        run: |
-             sed -in "s/Built from \`[a-f0-9]{7}\`\./Built from \`${{ env.short_sha }}\`./" ./README.md
-      - name: Update README
-        run: |
-             if ! grep -Pzo "\*\*Versions:\*\*(\n\* [a-z_\-]+)*\n\* ${{ env.branch }}" ./README.md
-             then
-                 # Add branch to list
-                 sed -in "s/\*\*Versions:\*\*/\*\*Versions:\*\*\n\* ${{ env.branch }}/" ./README.md
-             fi
-             # Add commit and link
-             sed -i "s,* ${{ env.branch }},* ${{ env.branch }}\n  * [\`${{ env.short_sha }}\`](http://roxymeskell.github.io/resume/${{ env.filepath }})," ./README.md
-      # Download resume pdf artifact
-      - name: Download a single artifact
+      # Download README artifact
+      - name: Download readme artifact
         uses: actions/download-artifact@v3
         with:
-          name: RESUME
-          path: artifact/
-      - name: Move and rename file
-        run: |
-          mkdir --parents $(dirname "${{ env.filepath }}")
-          mv artifact/resume.pdf "${{ env.filepath }}"
-          rmdir artifact
-      - name: Copy file if master branch
-        if: env.branch == 'master'
-        run: |
-             cp "${{ env.filepath }}" resume.pdf
+          name: README
+          path: pages/
+      # Download resume pdf  and updated README artifacts
+      - name: Download resume artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: resume-artifacts
+          path: pages/
       # Deploy to pages
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: ./
-          # folder: pages
+          folder: pages
           dry-run: true
-        
-# on:
-#   workflow_call:
-#     inputs:
-#       username:
-#         required: true
-#         type: string
-# jobs:
-#   reusable_workflow_job:
-#     runs-on: ubuntu-latest
-#     environment: production
-#     steps:
-#       - uses: ./.github/workflows/my-action
-#         with:
-#           username: ${{ inputs.username }}
-#           token: ${{ secrets.envPAT }}

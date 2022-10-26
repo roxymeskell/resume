@@ -1,0 +1,57 @@
+name: Build resume
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+      short_sha:
+        required: true
+        type: string
+      filepath:
+        required: true
+        type: string
+jobs:
+  build-resume:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo and build resume
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: resume.tex
+          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=_build"
+      # Move and rename file as necessary
+      - name: Copy and rename file
+        run: |
+          mkdir --parents $(dirname "_out/${{ inputs.filepath }}")
+          cp _build/resume.pdf "_out/${{ inputs.filepath }}"
+      - name: Copy resume file if master branch
+        if: inputs.branch == 'master'
+        run: cp _build/resume.pdf _out/resume.pdf
+      # Upload files as artifacts
+      - name: Upload branch/commit specific resume artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: resume-artifacts
+          path: ./_out/**/${{ inputs.filepath }}
+          retention-days: 1
+      - name: Upload main resume artifact if master branch
+        if: inputs.branch == 'master'
+        uses: actions/upload-artifact@master
+        with:
+          name: resume-artifacts
+          path: _build/resume.pdf
+          retention-days: 1
+
+  # Usage:
+  # jobs:
+  #   call-build-resume:
+  #     uses: ./.github/workflows/build-resume.yml
+  #     secrets: inherit
+  #     with:
+  #       branch: ${{ env.branch }}
+  #       short_sha: ${{ env.short_sha }}
+  #       filepath: ${{ env.filepath }}

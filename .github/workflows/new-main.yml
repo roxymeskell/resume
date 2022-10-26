@@ -3,22 +3,40 @@ on:
   push: # Triggers the workflow on push or pull request events
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
 jobs:
-  build-resume:
+  setup-env:
+    name: Setup env
     runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.setupenv.outputs.branch }}
+      short_sha: ${{ steps.setupenv.outputs.short_sha }}
+      filepath: ${{ steps.setupenv.outputs.filepath }}
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: resume.tex
-          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=_build"
-      - name: Upload artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: RESUME
-          path: _build/resume.pdf
+        uses: actions/checkout@v3
+      - name: Set env variables
+        id: setupenv
+        run: |
+          SHA=$(git rev-parse --short "$GITHUB_SHA")
+          echo "branch=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+          echo "short_sha=$SHA" >> $GITHUB_OUTPUT
+          echo "filepath=prev_builds/${GITHUB_REF_NAME}/${SHA}.pdf" >> $GITHUB_OUTPUT
+  call-build-resume:
+    needs: setup-env
+    uses: ./.github/workflows/build-resume.yml
+    secrets: inherit
+    with:
+      branch: ${{ needs.setup-env.outputs.branch }}
+      short_sha: ${{ needs.setup-env.outputs.short_sha }}
+      filepath: ${{ needs.setup-env.outputs.filepath }}
+  call-update-readme:
+    needs: setup-env
+    uses: ./.github/workflows/update-readme.yml
+    secrets: inherit
+    with:
+      branch: ${{ needs.setup-env.outputs.branch }}
+      short_sha: ${{ needs.setup-env.outputs.short_sha }}
+      filepath: ${{ needs.setup-env.outputs.filepath }}
   call-deploy:
-    needs: build-resume
+    needs: [call-build-resume, call-update-readme]
     uses: ./.github/workflows/deploy-to-pages.yml
     secrets: inherit
