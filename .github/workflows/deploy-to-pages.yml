@@ -1,6 +1,10 @@
 name: Deploy to Github Pages
 on:
   workflow_call:
+    inputs:
+      is_dry_run:
+        type: boolean
+        default: true
 jobs:
   # New Deploy
   deploy:
@@ -9,12 +13,6 @@ jobs:
       # Setup repository (needed for deploy to pages)
       - name: Set up Git repository
         uses: actions/checkout@v3
-      # Download README artifact
-      - name: Download readme artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: README
-          path: pages/
       # Download resume pdf  and updated README artifacts
       - name: Download resume artifacts
         uses: actions/download-artifact@v3
@@ -27,4 +25,4 @@ jobs:
         with:
           branch: gh-pages
           folder: pages
-          dry-run: true
+          dry-run: ${{ inputs.is_dry_run }}
