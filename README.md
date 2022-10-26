@@ -1,6 +1,6 @@
 # Automatic build
 [View PDF](http://roxymeskell.github.io/resume/resume.pdf)  
-Built from `0000000`.
+Built from `d1d79a8`.
 See https://github.com/roxymeskell/resume/ for details.  
 
 **Versions:**
