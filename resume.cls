@@ -28,6 +28,7 @@
 % Section title width?
 % SeperationAnsd
 
+\DeclareBoolOption[false]{showluaboxes}
 \DeclareBoolOption[false]{showframe}
 \DeclareBoolOption[false]{showboundingboxes}
 
@@ -56,6 +57,18 @@
         %headheight=22.70006pt, headsep=-3.20008pt
     }
 \fi
+
+\ifresume@showluaboxes%
+  \ifx
+  \directlua\pgf@gd@undefined@donotuse{%
+    \errmessage{Cannot draw boxes if not using LuaLatex.}%
+  }%
+  \else
+  \directlua{ require("drawboxes")}%
+  \RequirePackage{graphicx,atbegshi}%
+  \AtBeginShipout {\directlua{drawboxes.visual_debug()}}%
+  \fi%
+\fi%
 
 
 
