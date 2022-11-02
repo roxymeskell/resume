@@ -96,4 +96,33 @@
 %	\work@longbffalse
 %}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HELPER COMMANDS (Mostly for formatting)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Vertically centers resized text
+\newcommand*\raiseup[2][\tiny]{%
+        \begingroup%
+        \setbox0\hbox{#1\strut #2}%
+        \leavevmode%
+		\raise\dimexpr (\ht\strutbox - \ht0)/2\box0%
+        \endgroup%
+}
+
+% \newcommand*\daterangefmt[2][]{%
+%     {\small #1\ifnotempty{#2} - #2\fi}%
+% }
+
+
+% Formats daterange
+\def\daterangefmt#1{%
+	\@ifnextchar[%
+	{\daterangefmt@i{#1}}%
+	{\daterangefmt@i{#1}[]}%
+}
+\def\daterangefmt@i#1[#2]{%
+    {\small #1\ifnotempty{#2}{ - #2}}%
+}
+
 \endinput

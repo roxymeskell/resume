@@ -6,6 +6,12 @@
 \RequirePackage{arrayjob}
 \RequirePackage{multido}
 \RequirePackage[shortlabels]{enumitem}
+\RequirePackage{fontawesome}
+\def\workexp@seperate{%
+	\hspace*{.3em}%
+	\raiseup[\scriptsize]{\faAt}%
+	\hspace*{.3em}%
+}
 
 % Internal toggle for space between work experience
 %\newif\ifwork@longbf
@@ -68,7 +74,7 @@
 }
 \def\fwork@iiii#1[#2][#3][#4][#5]{%
 	\startchunk%
-	\ifnotempty{#4}{\textbf{#4}\hspace*{.3em}\textbar\hspace*{.3em}}#1\ifnotempty{#2}{ - {\small #2}}\ifnotempty{#3}{\hfill#3}\par%
+	\ifnotempty{#4}{\textbf{#4}\workexp@seperate}#1\ifnotempty{#2}{ - {\small #2}}\ifnotempty{#3}{\hfill{\small#3}}\par%
 	%\textbf{#1}\ifnotempty{#2}{ - #2}\ifnotempty{#3}{\hfill#3}\par%
 	\ifexpanded%
 		\nopagebreak
