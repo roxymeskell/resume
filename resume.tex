@@ -1,8 +1,7 @@
 %\documentclass[showframe,showboundingboxes]{resume}
-\documentclass{resume}
+\documentclass[showluaboxes=false]{resume}
 \usepackage{calc} % This is a helpful package that puts math inside length specifications
 \usepackage{etoolbox}
-\usepackage[shortlabels]{enumitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%% Set Header Values %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setname{Roxanna Meskell}
@@ -52,6 +51,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \begin{document}
 	%%\thispagestyle{plain}
 	%\makeheading{Roxanna Meskell} %
@@ -92,73 +92,65 @@
 	%%
 	%\vspace*{0.5\baselineskip}%
 	%\vspace*{-0.25\baselineskip}%
-	\section{Objective}%
-	%Interested in a single or double block co-op for 2016 working as a software developer.
-	%Looking for a single or double block co-op for Spring, Summer, and/or Fall 2017 in a computer science field in order to expand my skill set and gain real world experience.
-	%Motivated, experienced undergraduate senior seeking a full time position working as a Software Engineer starting June, 2018.
-	%Motivated, experienced undergraduate senior seeking a full or part-time position working as a Software Engineer.
-	Motivated, experienced software developer seeking new, enriching opportunities in front end or full stack development.
+	% \section{Objective}%
+	% %Interested in a single or double block co-op for 2016 working as a software developer.
+	% %Looking for a single or double block co-op for Spring, Summer, and/or Fall 2017 in a computer science field in order to expand my skill set and gain real world experience.
+	% %Motivated, experienced undergraduate senior seeking a full time position working as a Software Engineer starting June, 2018.
+	% %Motivated, experienced undergraduate senior seeking a full or part-time position working as a Software Engineer.
+	% Motivated, experienced software developer seeking new, enriching opportunities in front end or full stack development.
+	%\vspace*{0.25\baselineskip}%
 
-	\vspace*{0.25\baselineskip}%
-	\section{Education}%
-
-	\textbf{Rochester Institute of Technology}
-	- Rochester, NY
-	\hfill September 2013 - 2018
-	%\begin{outerlist}
-		%\item []
-		\begin{innerlist}
-			\item Major: B.S. Computer Science
-			\item 127 Credits Completed
-		\end{innerlist}
-	%\end{outerlist}
-
-
-
-	\vspace*{0.25\baselineskip}%
+	%\vspace*{0.25\baselineskip}%
 	\section{Skills}%
 	\setlength{\columnsep}{1pc}%{4pc}
 	\setlength{\multicolsep}{0pt}%
 	%
 	%\begin{vwcol}[widths={0.3,0.6,0.2}, sep=.5pc, lines=5, justify=flush,rule=0pt,indent=1em]
 	\begin{multicols}{3}%
-		\textbf{Languages}:
-		\begin{multicols}{2}
-			\begin{loneinnerlist}
-				\item Scala
-				\item JS/TS % Javascript
-				\item C/C++
+		\textbf{Languages}:\\
+		%\begin{multicols}{2}
+			%\begin{center}%
+			\begin{inlineseplist}%
+				\item JavaScript/TypeScript
 				\item Java
+				\item Scala
+				\item Python
+				\item C/C++
 				\item C\#
-				\item Ruby
+				\item Ruby/Rails
 				%\item MIPS
 				%\item Haskell
 				\item SQL
-				\item Python
 				\item PHP
 				\item HTML
 				\item CSS/SCSS
 				%\item \LaTeX
-			\end{loneinnerlist}
-		\end{multicols}
+			\end{inlineseplist}%
+		%\end{center}%
+		%\vfill
+
+			%\raggedright
+		%\end{multicols}
 		\columnbreak
-		\textbf{Tools}:
-		\begin{multicols}{2}
-			\begin{loneinnerlist}
-				\item Rails
+
+		\textbf{Tools}:\\%
+			\begin{inlineseplist}
 				\item NodeJS
 				\item ReactJS
-				\item CI/CD Pipelines
-				%\columnbreak
-				\item git
+				\item Webpack
+				%\item CI/CD~Pipelines\hfill
+				\item CI/CD\;Pipelines
+				\item Git
 				%\item vim
 				%\item gdb
 				\item GraphQL
 				% \item postgreSQL
 				\item MongoDB
 				\item InfluxDB
-				\item webpack
 				\item Ansible/AWX
+				\item Postman
+				\item Bash
+				\item RESTful\;APIs
 				% item gulp
 				%\item grunt
 				%\item Django
@@ -172,25 +164,15 @@
 				%\item Android\\Studio
 				\item \LaTeX
 				%\item Tableau
-			\end{loneinnerlist}
-		\end{multicols}
+			\end{inlineseplist}
 		\columnbreak
-		\textbf{Operating Systems}:
-		\begin{multicols}{1}
-			\begin{loneinnerlist}
+
+		\textbf{Operating Systems}:\\
+			\begin{inlineseplist}
 				\item Windows
-				\item Linux
-				\item macOS~X
-				\item[]
-				\item[]
-				%\columnbreak
-				%\item[]
-				%\item[]
-				%\item[]
-				%\item[]
-				%\item[]
-			\end{loneinnerlist}
-		\end{multicols}%
+				\item Linux/Unix
+				\item macOS
+			\end{inlineseplist}
 	\end{multicols}%
 	\vspace*{0.25\baselineskip}
 	%\end{vwcol}%
@@ -198,37 +180,69 @@
 	%\vspace{-.75\baselineskip}%
 		%\hyphenation{customers}
 		%\vspace{0.5\baselineskip}%
-		\section{Work Experience}
+		\section{Work Experience} % Use & to seperate into array
 		\fwork{Datto}[Remote][March 2021 - October 2022][Software Engineer II][%
 		Worked as part of the SaaS Protection Team, working on a subset of a distributed system that manages discovering Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from the SaaS providers. %
-		Used Scala, PHP, Typescript, and mySQL. Sometimes used Python and Ansible to supplement support scripts. %
-		Collaborated with others using Agile methodologies to design, implement, and QA new features. %
+		Used Scala, PHP, TypeScript, and MySQL. Used Python and Ansible to supplement support scripts. %
+		Collaborated with others using Agile methodologies to design, implement, and QA new features.%
+		%
+		% Tech stack includes: Scala, TypeScript, PHP Symfony, Ruby on Rails, Python, Elasticsearch, MySQL, PostgresSql, Anisble/AWX
+		%
 		% \{Stuff I did at Datto here\}%
 		% Work on SaaS Protection. Mostly on Seat Management. As part of a team. Both developed software and noth my own and my co-worker's skills as engineers.%
+		% Implemented solutions using Ansible and AWX to perform repeative tasks on remote machines. Taught teammates how to build their own solutions.
+		% 
 		]%
+
+
+		%
 		\fwork{Bryx}[Rochester, NY][October 2019 - January 2021][Software Engineer][%
-		Designed, developed, and tested new user interfaces for Bryx911 web applications using Node and ReactJS. %
+		Designed, developed, and tested new user interfaces for Bryx911 web applications using TypeScript, NodeJS, and ReactJS. %
 		Modularized code into reusable packages. %
 		Set up tools and pipelines to automatically build, test, deploy, and generate documentation. %
 		Provided customer support to both Bryx911 and Bryx Station users.%
+		% Tech stack includes: Typescript, ReactJS, Kotlin, Python, MongoDB
 		]%
 		\fwork{Calvary Robotics}[Rochester, NY][September 2018 - April 2019][Controls Software Engineer][%
-		Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
+		Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using Python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
+		% Tech stack includes: Javascript, Python, NodeJS, ReactJS, InfluxDB
+		% SSR: server-side rendering
+		% Open Platform Communications Unified Unified Architecture
+		% OPC UA - a machine-to-machine communication protocol used for industrial automation and developed by the OPC Foundation
 		%Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking software platform for industrial manufacturing machines. %
 		%full stack application built with react, python, SSR, NodeJS, etc
 		%Architected, implemented, and tested an embedded, OPC UA based, industrial internet of things (IIoT) performance tracking software platform for industrial manufacturing machines.
 		]%
-		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.]%
+		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.%
+		% Tech stack includes: PHP, Javascript, AngularJS, MySQL, PostgresSQL
+		]%
 		% Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Work consisted ot designing databases, developing REST APIs, and front-end feature developement.
 		% Also set up CI pipelines to generate documentation for our main code database.
 		% Also worked to set up a system to keep projects documented.
 		%
-		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in Javascript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS. ({\it fixit.intuit.com})]%
+		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in JavaScript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS.]%
 		%  {\it fixit.intuit.com}
 		% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella
 		%\vspace{-\baselineskip}
 		\fwork{Siemens Industry}[Norcross, GA][June 2012 - July 2012][Business Intern]%
 	%
+
+		%\vspace*{0.25\baselineskip}%
+		\section{Education}%
+		\textbf{Rochester Institute of Technology}
+		- {\small Rochester, NY}
+		\hfill\daterangefmt{September 2013}[2018]
+		\\
+		\begingroup
+		\setlength{\parindent}{0.4in}
+		\indent B.S. Computer Science
+		\endgroup
+		% \begin{innerlist}
+		% 	\item Major: B.S. Computer Science
+		% 	\item 127 Credits Completed
+		% \end{innerlist}
+		\vspace*{0.25\baselineskip}%
+	
 	%\vspace*{0.25\baselineskip}
 	\section{Projects}%
 	\fproj{Where to Find Brunch}[Personal][2018 - On Hold][Language: Ruby&Uses Rails&Uses Yelp's GraphQL API&Randomly generates a place to got to brunch based on a location or zipcode]
@@ -273,11 +287,11 @@
 %		\end{innerlist}
 %	\end{columns}
 
-	\section{Extracurricular}
-	\expandexcoff%
-	\fextracurr{Computer Science House (CSH)}[Fall 2013 - 2018][][]
-	\fextracurr{Society of Software Engineers (SSE)}[Fall 2015 - 2017][][]
-	%\fextracurr{FIRST Robotics (Highschool)}[Fall 2011 - Spring 2013][][]
+	% \section{Extracurricular}
+	% \expandexcoff%
+	% \fextracurr{Computer Science House (CSH)}[Fall 2013 - 2018][][]
+	% \fextracurr{Society of Software Engineers (SSE)}[Fall 2015 - 2017][][]
+	% %\fextracurr{FIRST Robotics (Highschool)}[Fall 2011 - Spring 2013][][]
 
 	\halfblankline
 
