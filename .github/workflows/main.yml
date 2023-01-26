@@ -47,4 +47,4 @@ jobs:
     uses: ./.github/workflows/deploy-to-pages.yml
     secrets: inherit
     with:
-      is_dry_run: ${{ inputs.is_dry_run || true}}
+      is_dry_run: ${{ inputs.is_dry_run }}
