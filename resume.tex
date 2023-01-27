@@ -182,9 +182,12 @@
 		%\vspace{0.5\baselineskip}%
 		\section{Work Experience} % Use & to seperate into array
 		\fwork{Datto}[Remote][March 2021 - October 2022][Software Engineer II][%
-		Worked as part of the SaaS Protection Team, working on a subset of a distributed system that manages discovering Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from their respective SaaS providers. %
-		Used Scala, PHP, TypeScript, and MySQL. Used Python and Ansible to supplement support scripts. %
-		Collaborated with team members using Agile methodologies to design, implement, and QA new features.%
+		Worked as part of the SaaS Protection Team, working on a subsection of a distributed system that manages discovering, protecting, and billing Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from their respective SaaS providers. %
+		% Used Python and Ansible to supplement support scripts. %
+		Collaborated with team members using Agile methodologies to design, implement, and QA new features. %
+		Created and supplemented support scripts to help ease the transition of migrating existing data from an old system to the updated system. %
+		&%
+		Tech stack included: Scala, TypeScript, PHP Symfony, Python, Elasticsearch, MySQL, PostgresSQL, Ansible/AWX		
 		%
 		% Tech stack includes: Scala, TypeScript, PHP Symfony, Ruby on Rails, Python, Elasticsearch, MySQL, PostgresSql, Anisble/AWX
 		%
@@ -216,6 +219,8 @@
 		Modularized code into reusable packages. %
 		Set up tools and pipelines to automatically build, test, deploy, and generate documentation. %
 		Provided customer support to both Bryx911 and Bryx Station users.%
+		&%
+		Tech stack included: Typescript, ReactJS, Kotlin, Python, MongoDB
 		% Tech stack includes: Typescript, ReactJS, Kotlin, Python, MongoDB
 %
 % • Did support ("3rd level support")
@@ -242,7 +247,10 @@
 % • “Revamped customer onboarding experience”
 		]%
 		\fwork{Calvary Robotics}[Rochester, NY][September 2018 - April 2019][Controls Software Engineer][%
-		Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using Python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
+		% Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using Python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
+		Designed and developed a custom, standalone performance tracking application for industrial manufacturing machines. Time-based data from machines was collected and stored by a backend process. Data could then be accessed and displayed via a dashboard. Application dashboard was web-based and used server-side rendering, so that it could be accessed from any device with a browser.
+		&%
+		Tech stack included: JavaScript, Python, NodeJS, ReactJS, InfluxDB%
 		% Tech stack includes: Javascript, Python, NodeJS, ReactJS, InfluxDB
 		% SSR: server-side rendering
 		% Open Platform Communications Unified Unified Architecture
@@ -258,8 +266,10 @@
 % development
 % • Components meant to be containerized components
 		]%
-		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.%
-		% Tech stack includes: PHP, Javascript, AngularJS, MySQL, PostgresSQL
+		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Set up CI pipelines to generate code documentation form our main codebase. Additionally, set up a system of project tracking for the team.%
+		&%
+		Tech stack included: PHP, JavaScript, AngularJS, MySQL, PostgresSQL
+		% Tech stack includes: PHP, Javascript, AngularJS, MySQL, PostgresSQL, NginX
 		]%
 		% Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Work consisted ot designing databases, developing REST APIs, and front-end feature developement.
 		% Also set up CI pipelines to generate documentation for our main code database.
@@ -269,7 +279,10 @@
 % • Internal Service Provider Web app machine statistics lookup
 % • Asset metrics collection & display monitoring (i think)
 % • Helped mentor and onboard team members
-		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in JavaScript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS.]%
+		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development and testing of current features. Also worked on a secondary project to create a browser based diagnostic tool for customers to use.%
+		&%
+		Tech stack included: JavaScript, ReactJS]%
+		% Tech stack included: JavaScript, ReactJS
 		%  {\it fixit.intuit.com}
 		% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella
 		%\vspace{-\baselineskip}
@@ -294,11 +307,22 @@
 	
 	%\vspace*{0.25\baselineskip}
 	\section{Projects}%
-	\fproj{Where to Find Brunch}[Personal][2018 - On Hold][Language: Ruby&Uses Rails&Uses Yelp's GraphQL API&Randomly generates a place to got to brunch based on a location or zipcode]
-	\fproj{Tangram Piece Detector}[Computer Vision][Fall 2016][Language: MatLab&Research project&Used computer vision concepts to find and identify pieces of a tangram puzzle&Implemented generic Hough Transform]%
+	\fproj{\href{https://github.com/roxymeskell/BrunchApp}{Where to Find Brunch}}[Personal][2018 - 2019][%
+		Using data from Yelp, randomly generates a place to get brunch based on location.&
+		Tech stack: Ruby on Rails, GraphQL%
+	]
+	\fproj{Tangram Piece Detector}[Computer Vision][Fall 2016][%
+	Used computer vision concepts to find and identify pieces of a tangram puzzle&%
+	&Implemented generic Hough Transform%
+	&Language: MatLab%
+	]%
 	%
-	\fproj{Threaded Multidimensional Maze Generator}[Personal][2014 - On Hold][Language: C&Uses binary division to generate maze&Plans to be able generate a maze spanning at least 16 dimensions&Plans to be able to output maze to a file]
-	\expandprojoff
+	\fproj{Threaded Multidimensional Maze Generator}[Personal][2014][%
+        Using binary division as a maze generation algorithm, generates a maze spanning over three dimensions and then outputs the result to a file to be used in other applications.
+		% Uses binary division to generate maze&Plans to be able generate a maze spanning at least 16 dimensions&Plans to be able to output maze to a file%
+		&Language: C%
+	]%
+	\expandprojoff%
 	%
 	\fproj{Song Database}[Data Management][Fall 2014][‘Language: Java&PostgreSQL database&Group project&Stores information for songs and playlists&Wrote majority of the SQL code for the database’]%
 	%\fproj{Maze Generation Simulator}[Personal][2013][‘Language: Java&Shows the progression of mazes as they are generated using different algorithms&Intended for use during a seminar’]
