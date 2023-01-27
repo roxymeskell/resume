@@ -45,7 +45,7 @@
 \providecommand\Matlab{\textsc{Matlab}}
 
 % Custom hyphenation rules for words that LaTeX has trouble with
-\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er}
+\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er methodologies}
 
 
 
@@ -182,16 +182,31 @@
 		%\vspace{0.5\baselineskip}%
 		\section{Work Experience} % Use & to seperate into array
 		\fwork{Datto}[Remote][March 2021 - October 2022][Software Engineer II][%
-		Worked as part of the SaaS Protection Team, working on a subset of a distributed system that manages discovering Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from the SaaS providers. %
+		Worked as part of the SaaS Protection Team, working on a subset of a distributed system that manages discovering Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from their respective SaaS providers. %
 		Used Scala, PHP, TypeScript, and MySQL. Used Python and Ansible to supplement support scripts. %
-		Collaborated with others using Agile methodologies to design, implement, and QA new features.%
+		Collaborated with team members using Agile methodologies to design, implement, and QA new features.%
 		%
 		% Tech stack includes: Scala, TypeScript, PHP Symfony, Ruby on Rails, Python, Elasticsearch, MySQL, PostgresSql, Anisble/AWX
 		%
 		% \{Stuff I did at Datto here\}%
 		% Work on SaaS Protection. Mostly on Seat Management. As part of a team. Both developed software and noth my own and my co-worker's skills as engineers.%
 		% Implemented solutions using Ansible and AWX to perform repeative tasks on remote machines. Taught teammates how to build their own solutions.
-		% 
+% 
+% • Ninjago
+%   ◦ Worked on bugs & various issues that didn't fall into other team's sprints
+%   ◦ Investigate and reproduce errors coming from external APIs such as Google and MSFT and handle them
+% • Lepin
+%   ◦ Seat management
+%   ◦ GAA (Grandular Auto Add)
+%     ‣ Elastic search Indices
+%       • Pros/Cons of how indices designed
+%     ‣ Business logic to populate
+%   ◦ AWX/Ansible
+%     ‣ Seat conversions from 1.0 to 2.0
+%     ‣ Learned and taught team
+%   ◦ Hackathon
+%     ‣ Worked with team of engineers I typically did not work with
+%     ‣ Created ReactJS page in SAAS Protection (mainly a PHP and Twig based framework) using reusable React components created by a separate team (Portal team)
 		]%
 
 
@@ -202,6 +217,29 @@
 		Set up tools and pipelines to automatically build, test, deploy, and generate documentation. %
 		Provided customer support to both Bryx911 and Bryx Station users.%
 		% Tech stack includes: Typescript, ReactJS, Kotlin, Python, MongoDB
+%
+% • Did support ("3rd level support")
+%   ◦ Wrote many articles w/ screenshots
+%   ◦ Had overnight on-call shifts
+% • Wrote python script to bulk upload agency specific "site notes" for locations such as knox boxes & covid warnings (“Process Automation”)
+% • Helped build/maintain:
+%   ◦ Agency sign up
+%   ◦ Account management site
+%   ◦ Agency management portal
+%   ◦ Web-based maps
+%   ◦ Internal support tools portal
+%   ◦ Worked with UX designer/branding
+%   ◦ Used: ReactJS, SCSS, TypeScript, Webpack, Semantic (style components)
+%   ◦ “Designing customer workflows”
+% • Designed, documented, & consumed data Rest APIs
+% • Created automation for code documentation & testing using GitLab Pipelines
+% • Created ReactJS component NPM packages for reuse within various ap plications
+%   ◦ Set up NPM registry for internal packages (“Dependency management”)
+% • Created hydrant display/upload tool (Support, part of management portal)
+% • Uploaded and drew agency boundaries (Support, had to do by hand)
+%   ◦ Had to mess with database values often
+% • ”Advanced Customer Success Management”
+% • “Revamped customer onboarding experience”
 		]%
 		\fwork{Calvary Robotics}[Rochester, NY][September 2018 - April 2019][Controls Software Engineer][%
 		Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using Python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
@@ -212,6 +250,13 @@
 		%Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking software platform for industrial manufacturing machines. %
 		%full stack application built with react, python, SSR, NodeJS, etc
 		%Architected, implemented, and tested an embedded, OPC UA based, industrial internet of things (IIoT) performance tracking software platform for industrial manufacturing machines.
+%
+% • Worked on an independent project
+% • ReactJS based web app to display data from machines
+% • Time based data collected via python into influx DB
+% • Graphs, Responsive design, full stack, code splitting, testing/test
+% development
+% • Components meant to be containerized components
 		]%
 		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Also set up CI pipelines to generate documentation for our main code database. Additionally, set up a system of project documentation.%
 		% Tech stack includes: PHP, Javascript, AngularJS, MySQL, PostgresSQL
@@ -220,6 +265,10 @@
 		% Also set up CI pipelines to generate documentation for our main code database.
 		% Also worked to set up a system to keep projects documented.
 		%
+%
+% • Internal Service Provider Web app machine statistics lookup
+% • Asset metrics collection & display monitoring (i think)
+% • Helped mentor and onboard team members
 		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development in JavaScript, as well as testing of current features. Also worked on secondary project to create a browser based diagnostic tool using ReactJS.]%
 		%  {\it fixit.intuit.com}
 		% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella
@@ -255,7 +304,7 @@
 	%\fproj{Maze Generation Simulator}[Personal][2013][‘Language: Java&Shows the progression of mazes as they are generated using different algorithms&Intended for use during a seminar’]
 	%\fproj{Car Accidents vs. Rain}[Data Mining][Fall 2016][‘Aimed at related accidents in New York to rain fall’]%
 	%
-	\fproj{Multidimensional Maze Generator}[Personal][2013 - 2014][‘Language: C\#&Uses Eller's Algorithm to randomly generate a maze spanning up to 16 dimensions&Maze is viewable and able to be transversed in the console’]
+	\fproj{\href{https://github.com/roxymeskell/MDMazeGeneration}{Multidimensional Maze Generator}}[Personal][2013 - 2014][‘Language: C\#&Uses Eller's Algorithm to randomly generate a maze spanning up to 16 dimensions&Maze is viewable and able to be transversed in the console’]
 	%\fproj{Ingredient Organizer App}[Personal][2015][‘Language: Java&PostgresSQL database&For Android&Stores recipes and tracks ingredients user has on hand’]
 	%\fproj{Intelligent Clue Player}[Intelligent Systems][Spring 2015][‘Language: Java&Coded player for Clue to make the most optimal move and win nearly every game’]
 	%\fproj{Healthnet}[Software Engineering][Fall 2015][‘Language: Python, HTML, CSS&Uses Django&Group project&A website to track patient and medical staff information for hospitals’]
