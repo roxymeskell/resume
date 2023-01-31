@@ -33,7 +33,7 @@ jobs:
       - name: Update README if master branch
         if: inputs.branch == 'master'
         run: |
-             sed -in "s/Built from \`[a-f0-9]{7}\`\./Built from \`${{ inputs.short_sha }}\`./" ./README.md
+             sed -in 's/Built from `[a-f0-9]\{7\}`./Built from \`'"${{ inputs.short_sha }}"'\`./' ./README.md
       - name: Update README
         run: |
              if ! grep -Pzo "\*\*Versions:\*\*(\n\* [a-z_\-]+)*\n\* ${{ inputs.branch }}" ./README.md
