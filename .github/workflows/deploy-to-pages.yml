@@ -25,4 +25,5 @@ jobs:
         with:
           branch: gh-pages
           folder: pages
+          clean: false
           dry-run: ${{ inputs.is_dry_run }}
