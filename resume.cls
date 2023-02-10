@@ -133,6 +133,7 @@ contents={%
     \RequirePackage{projects}
     \RequirePackage{workexp}
     \RequirePackage{extracurr}
+    \RequirePackage{skills}
 \fi
 
 %\setlength{\headheight}{37.3001pt}

@@ -2,6 +2,7 @@
 \documentclass[showluaboxes=false]{resume}
 \usepackage{calc} % This is a helpful package that puts math inside length specifications
 \usepackage{etoolbox}
+%\usepackage[none]{hyphenat}
 
 %%%%%%%%%%%%%%%%%%%%%%%% Set Header Values %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setname{Roxanna Meskell}
@@ -102,81 +103,19 @@
 
 	%\vspace*{0.25\baselineskip}%
 	\section{Skills}%
-	\setlength{\columnsep}{1pc}%{4pc}
-	\setlength{\multicolsep}{0pt}%
-	%
-	%\begin{vwcol}[widths={0.3,0.6,0.2}, sep=.5pc, lines=5, justify=flush,rule=0pt,indent=1em]
-	\begin{multicols}{3}%
-		\textbf{Languages}:\\
-		%\begin{multicols}{2}
-			%\begin{center}%
-			\begin{inlineseplist}%
-				\item JavaScript/TypeScript
-				\item Java
-				\item Scala
-				\item Python
-				\item C/C++
-				\item C\#
-				\item Ruby/Rails
-				%\item MIPS
-				%\item Haskell
-				\item SQL
-				\item PHP
-				\item HTML
-				\item CSS/SCSS
-				%\item \LaTeX
-			\end{inlineseplist}%
-		%\end{center}%
-		%\vfill
-
-			%\raggedright
-		%\end{multicols}
-		\columnbreak
-
-		\textbf{Tools}:\\%
-			\begin{inlineseplist}
-				\item NodeJS
-				\item ReactJS
-				\item Webpack
-				%\item CI/CD~Pipelines\hfill
-				\item CI/CD\;Pipelines
-				\item Git
-				%\item vim
-				%\item gdb
-				\item GraphQL
-				% \item postgreSQL
-				\item MongoDB
-				\item InfluxDB
-				\item Ansible/AWX
-				\item Postman
-				\item Bash
-				\item RESTful\;APIs
-				% item gulp
-				%\item grunt
-				%\item Django
-				%\columnbreak
-				%\item Eclipse
-				%\item Netbeans
-				%\item Visual Studio
-				%\item AngularJS
-				%\item Microsoft Office
-				%\item MatLab
-				%\item Android\\Studio
-				\item \LaTeX
-				%\item Tableau
-			\end{inlineseplist}
-		\columnbreak
-
-		\textbf{Operating Systems}:\\
-			\begin{inlineseplist}
-				\item Windows
-				\item Linux/Unix
-				\item macOS
-			\end{inlineseplist}
-	\end{multicols}%
-	\vspace*{0.25\baselineskip}
-	%\end{vwcol}%
-	%
+	\skills{%
+	    align=justified,
+		colsep=0.25em,%
+		colratio={0.35,0.4,0.25},%
+		indent=0.75em,%
+		skills={%
+			Languages={JavaScript/TypeScript, Java, Scala, Python, C/C++, C\#, Ruby/Rails, SQL, PHP, HTML, CSS/SCSS},%
+			Tools={NodeJS,ReactJS,Webpack,CI/CD\;Pipelines,Git,GraphQL,MongoDB,InfluxDB,Ansible/AWX,Postman,Bash,RESTful\;APIs,\LaTeX},%
+			Operating Systems={Windows,Linux/Unix,macOS}%
+		}%
+	}%
+	\vspace*{0.25\baselineskip}%
+	
 	%\vspace{-.75\baselineskip}%
 		%\hyphenation{customers}
 		%\vspace{0.5\baselineskip}%

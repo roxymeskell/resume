@@ -1,0 +1,108 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{skills}[2023/02/09 Skill Commands Package]
+
+\RequirePackage{resutil}
+\RequirePackage{listHelper}
+\RequirePackage{colHelper}
+
+\RequirePackage{paracol}
+
+\ExplSyntaxOn
+\keys_define:nn { skilllist }
+ {
+	label  .tl_set_x:N  = \skilllist_label,  % Label
+	ragged .bool_set:N  = \skilllist_ragged, % Ragged
+	ragged .default:n   = true,
+	ragged .initial:n   = false,
+	indent .dim_set:N   = \skilllist_indent, % Indent
+	indent .initial:n   = 0em,
+ }
+ \NewDocumentEnvironment{skilllist}{O{}}{%
+	% Get key values
+	\keys_set:nn { skilllist } { #1 } 
+	\tl_if_empty:VF \skilllist_label {\textbf{\skilllist_label}:\par}%
+	\begingroup
+	\tl_if_empty:VF \skilllist_indent {\addtolength{\leftskip}{\skilllist_indent}}%
+	\begin{itemize*}[
+		label={},      % No label
+		afterlabel={}, % By default, this is \nobreakspace    % \unskip
+		before={},     % Before is \nobreakspace, i.e. ~
+		mode=unboxed,
+		itemjoin=\bool_if:NTF \skilllist_ragged {\discretionary{}{}{\hbox{\nobreakspace\textperiodcentered\nobreakspace}}}{\nobreakspace\discretionary{}{}{\textperiodcentered}\nobreakspace}
+	]%
+}{%
+	\end{itemize*}\par%
+	\endgroup%
+}
+
+\keys_define:nn { skills }
+ {
+	colratio .code:n = {\columnratio{#1}},
+	colratio .initial:n   = {0.35,0.4,0.25},
+	colsep   .dim_set:N   = \l__skills_colsep, % Colsep
+	colsep   .initial:n   = 0.25em,
+	indent   .dim_set:N   = \l__skills_indent, % Indent
+	indent   .initial:n   = 0em,
+	%
+	
+	align .choice:,
+	align / justified   .code:n = {%
+		\tl_set:Nn \l__skills_align { \sloppy }%
+		\bool_set_false:N \l__skills_ragged%
+	} ,
+	align / raggedright .code:n = {%
+		\tl_set:Nn \l__skills_align { \raggedright }%
+		\bool_set_true:N \l__skills_ragged%
+	} ,
+	align / raggedleft  .code:n = {%
+		\tl_set:Nn \l__skills_align { \raggedleft }%
+		\bool_set_true:N \l__skills_ragged%
+	 } ,
+	align / centered    .code:n = {%
+		\tl_set:Nn \l__skills_align { \centering }%
+		\bool_set_true:N \l__skills_ragged%
+	 } ,
+	align .initial:n = justified,
+	skills .meta:nn = {skills/skills}{#1},
+	skills / unknown .code:n = {%
+		\prop_put:NVn \l__skills_skills_prop \l_keys_key_str{#1}%
+	},
+
+ }
+\prop_new:N \l__skills_skills_prop
+\cs_new:Nn\makeskillitem:n{\item #1}
+
+\NewDocumentCommand{\skills}{m}{
+	% Set keys
+	\prop_clear:N \l__skills_skills_prop
+	\keys_set:nn { skills } { #1 }%
+	% Set lengths
+	\setlength{\columnsep}{\dim_use:N\l__skills_colsep}%
+    % Make columns
+	\begin{paracol}{\prop_count:N \l__skills_skills_prop}%
+	\l__skills_align%
+	%
+	\prop_map_inline:Nn \l__skills_skills_prop {%
+		\seq_set_from_clist:Nn \l__skill_vals_seq {##2}%
+		\seq_remove_duplicates:N \l__skill_vals_seq%
+		\bool_if:NTF \l__skills_ragged {%
+			\begin{skilllist}[label=##1, indent=\l__skills_indent, ragged]%
+		}{%
+			\begin{skilllist}[label=##1, indent=\l__skills_indent]%
+		}
+		% \begin{skilllist}[
+		% 	label=##1,%
+		% 	indent=\l__skills_indent,%
+		% 	ragged=\bool_if:NTF \l__skills_ragged {1}{0}
+		% ] % ragged=\l__skills_ragged, 
+		%\begin{skilllist}[label=##1, indent=\l__skills_indent] % ragged=\l__skills_ragged, 
+			\seq_map_function:NN \l__skill_vals_seq \makeskillitem:n %
+			%\seq_map_inline:Nn \l__skill_vals_seq { \item ###1 }%
+		\end{skilllist}%
+		\switchcolumn%
+	}
+	\end{paracol}
+}
+
+\ExplSyntaxOff
+\endinput
