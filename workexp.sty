@@ -13,164 +13,121 @@
 	\hspace*{.3em}%
 }
 
-% Internal toggle for space between work experience
-%\newif\ifwork@longbf
-%\work@longbftrue
-%\newcommand{\work@space}{%
-%	\ifwork@longbf
-%	\else%
-%		\vspace*{-\baselineskip}%
-%	\fi%
-%}
-%\newcommand{\work@lastlong}{%
-%	\work@longbftrue
-%}
-%\newcommand{\work@lastshort}{%
-%	\work@longbffalse
-%}
-
-% Toggle for expanding work experience
-%\newif\ifexwork
-%\exworktrue
-%\newcommand{\toggleexpandwork}{
-%	\ifexwork
-%		\exworkfalse
-%	\else
-%		\exworktrue
-%	\fi
-%}
-%\newcommand{\expandworkon}{\exworktrue}
-%\newcommand{\expandworkoff}{\exworkfalse}
-
-% List for projects
-\newlist{worklist}{itemize}{3}
-\setlist[worklist]{label=\enskip,leftmargin=0.4in,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
-\fixinnerlist{worklist}
-\fixendlist[0.3]{worklist}
-
-\def\fwork@expand{def}
-
-% % % %
-
-\def\fwork#1{%
-	\@ifnextchar[%
-	{\fwork@i{#1}}%
-	{\fwork@i{#1}[]}%
+\ExplSyntaxOn
+\keys_define:nn { workexpglobal } {
+	expanded         .bool_gset:N         = \g__workexp_expand_bool,
+	expanded         .initial:n           = true,
+	expanded         .default:n           = true,
+	expand           .meta:n              = { expanded },
+	not-expanded     .bool_gset_inverse:N = \g__workexp_expand_bool,
+	not-expanded     .default:n           = true,
+	noexpand         .meta:n              = { not-expanded },
+	indent           .dim_gset:N          = \g__workexp_indent_dim,
+	indent           .initial:n           = 1em,
+	indent           .value_required:n    = true,
+	skillindent      .dim_gset:N          = \g__workexp_skillindent_dim,
+	skillindent      .initial:n           = 0em,
+	skillindent      .value_required:n    = true,
+	companyseperater .tl_gset:N           = \g__workexp_compsep_tl,
+	companyseperater .initial:n           = \hspace*{.3em}\raiseup[\scriptsize]{\faAt}\hspace*{.3em},
+	companyseperater .value_required:n    = true,
 }
-\def\fwork@i#1[#2]{%
-	\@ifnextchar[%
-	{\fwork@ii{#1}[#2]}%
-	{\fwork@ii{#1}[#2][]}%
-}
-\def\fwork@ii#1[#2][#3]{%
-	\@ifnextchar[%
-	{\fwork@iii{#1}[#2][#3]}%
-	{\fwork@iii{#1}[#2][#3][]}%
-}
-\def\fwork@iii#1[#2][#3][#4]{%
-	\@ifnextchar[%
-	{\fwork@iiii{#1}[#2][#3][#4]}%
-	{\fwork@iiii{#1}[#2][#3][#4][]}%
-}
-\def\fwork@iiii#1[#2][#3][#4][#5]{%
-	\startchunk%
-	\ifnotempty{#4}{\textbf{#4}\workexp@seperate}#1\ifnotempty{#2}{ - {\small #2}}\ifnotempty{#3}{\hfill{\small#3}}\par%
-	%\textbf{#1}\ifnotempty{#2}{ - #2}\ifnotempty{#3}{\hfill#3}\par%
-	\ifexpanded%
-		\nopagebreak
-		% \ifnotempty{#4}{#4\par\nopagebreak}
-		\def\temp{#5}\ifx\temp\empty%
-		\else%
-			\newarray\Desc
-			\readarray{Desc}{#5}
-			\raggedright%
-			\begin{worklist}%
-				\multido{\iDesc=1+1}{8}{%
-					\arrValToItem{Desc}{\iDesc}
-				}
-			\end{worklist}%
-			\delarray\Desc
-		\fi
-	\fi%
-	\endchunk
+\newlist{workexpabout}{itemize}{3}
+\setlist[workexpabout]{label={},leftmargin=\g__workexp_indent_dim,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+\NewDocumentCommand{\setworkexp}{m}{
+	\keys_set:nn { workexpglobal } { #1 }%
+	\setlist[workexpabout]{label={},leftmargin=\g__workexp_indent_dim,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}%
 }
 
+\keys_define:nn { workexp } {
+	jobtitle    .tl_set_x:N        = \l__workexp_jobtitle_tl,  % Job Title
+	jobtitle    .value_required:n  = true,
+	company     .tl_set_x:N        = \l__workexp_company_tl,   % Company
+	company     .value_required:n  = true,
+	location    .tl_set_x:N        = \l__workexp_loc_tl,       % Location
+	location    .value_required:n  = true,
+	start       .tl_set_x:N        = \l__workexp_start_tl,     % Start Date
+	start       .value_required:n  = true,
+	startdate   .meta:n            = { start = #1 },
+	startdate   .value_required:n  = true,
+	end         .tl_set_x:N        = \l__workexp_end_tl,       % End Date
+	end         .value_required:n  = true,
+	enddate     .meta:n            = { end = #1 },
+	enddate     .value_required:n  = true,
+	current     .meta:n            = { end = Current },
+	current     .value_forbidden:n = true,
+	description .clist_set:N       = \l__workexp_desc_clist,   % Description
+	description .value_required:n  = true,
+	about       .meta:n            = { description = {#1} },
+	about       .value_required:n  = true,
+	skills      .clist_set:N       = \l__workexp_skill_clist, % Skills
+	skills      .value_required:n  = true,
+ }
 
-% % % %
-
-%\def\fwork#1{%
-%	\@ifnextchar[%
-%	{\fwork@i{#1}}%
-%	{%
-%		\work@space
-%		\work@lastshort%
-%		\textbf{#1}\par\vspace{\baselineskip}
-%	}%
-%}
-%\def\fwork@i#1[#2]{%
-%	\@ifnextchar[%
-%	{\fwork@ii{#1}[#2]}%
-%	{%
-%		\work@space
-%		\work@lastshort%
-%		\textbf{#1} - #2\par\vspace{\baselineskip}
-%	}%
-%}
-%\def\fwork@ii#1[#2][#3]{%
-%	\@ifnextchar[%
-%	{\fwork@iii{#1}[#2][#3]}%
-%	{%
-%		\work@space
-%		\work@lastshort%
-%		\textbf{#1} - #2\hfill#3\\
-%	}%
-%}
-%\def\fwork@iii#1[#2][#3][#4]{%
-%	\@ifnextchar[%
-%	{\fwork@iiii{#1}[#2][#3][#4]}%
-%	{%
-%	\work@space
-%	\textbf{#1} - #2\hfill#3\\%
-%	\ifexwork%
-%		\nopagebreak
-%		#4\par\vspace{\baselineskip}
-%		\work@lastlong
-%	\else%
-%		\work@lastshort
-%		\par\vspace{\baselineskip}
-%	\fi%
-%	}
-%}
-%\def\fwork@iiii#1[#2][#3][#4][#5]{%
-%	\work@space
-%	\textbf{#1} - #2\hfill#3\\%
-%	\ifexwork%
-%	\nopagebreak
-%	#4\\\nopagebreak
-%	\newarray\Desc
-%	\readarray{Desc}{#5}
-%	\begin{worklist}%
-%		\multido{\iDesc=1+1}{8}{%
-%			\checkDesc(\iDesc)
-%			\ifemptydata
-%			\else
-%			\item‘\Desc(\iDesc)’
-%			\clrarray{Desc}(\iDesc)
-%			\fi
-%		}
-%	\end{worklist}%
-%	\delarray\Desc
-%	\work@lastlong
-%	\vspace{\baselineskip}
-%	\else%
-%	\work@lastshort
-%	\par\vspace{\baselineskip}
-%	\fi%
-%}
-
-%\textbf{Intuit} - Mountian View, CA
-%\hfill January 2016 - July 2016\\
-%Software Engineer Co-op\par
+%%%
+% TO DO:
+%  * Make sure spacing is even between all possibly versions/options of this command
+%  * Error messages(?): \errmessage{Error message.}
+%%%
+\NewDocumentCommand{\workexp}{m}{
+	\group_begin:%
+	\keys_set:nn { workexp} { #1 }%
+	% Only if Job Title and/or Company
+	\bool_if:nF { \tl_if_empty_p:V \l__workexp_jobtitle_tl && \tl_if_empty_p:V \l__workexp_company_tl } {%
+	\startchunk
+	% Job Title
+	\tl_if_empty:NF \l__workexp_jobtitle_tl {%
+		\textbf{\tl_use:N \l__workexp_jobtitle_tl}%
+		\tl_if_empty:NF \l__workexp_company_tl {\tl_use:N \g__workexp_compsep_tl}%
+	}%
+	% Company
+	\tl_if_empty:NF \l__workexp_company_tl {\tl_use:N \l__workexp_company_tl}%
+	% Location
+	\tl_if_empty:NF \l__workexp_loc_tl {%
+		{%
+			%\small%
+			\hspace*{.3em}-\hspace*{.3em}%
+			\tl_use:N \l__workexp_loc_tl%
+		}%
+	}%
+	% Time Range
+	\tl_if_empty:NF \l__workexp_start_tl {%
+		{%
+			\hfill\small%
+			\tl_use:N \l__workexp_start_tl%
+			\hspace*{.3em}-\hspace*{.3em}%
+			\tl_if_empty:NTF \l__workexp_end_tl {Current}{\tl_use:N \l__workexp_end_tl}%
+		}%
+	}%
+	% About & Skills if Expanded
+	\bool_if:nT {
+		\bool_if_p:N \g__workexp_expand_bool &&
+		!(\clist_if_empty_p:N \l__workexp_desc_clist || \clist_if_empty_p:N \l__workexp_skill_clist)
+	} {%
+		\nopagebreak%
+		\raggedright%
+		% About
+		\clist_if_empty:NF \l__workexp_desc_clist {%
+			\begin{workexpabout}% [parsep=1em,itemsep=1em,topsep=1em,partopsep=1em]%
+				\clist_map_inline:Nn \l__workexp_desc_clist {\item ##1}%
+			\end{workexpabout}%
+		}%
+		% Skills
+		\clist_if_empty:NF \l__workexp_skill_clist {%
+		    \nopagebreak%
+			\par%
+			\addtolength{\leftskip}{\g__workexp_indent_dim}%
+			\addtolength{\leftskip}{\g__workexp_skillindent_dim}%
+			\it \clist_use:Nn \l__workexp_skill_clist { ,~ }%
+			\par%
+		}%
+	}%
+	\vspace{-0.3\baselineskip}%
+	\endchunk%
+	}
+	\group_end:%
+}
+\ExplSyntaxOff
 
 
 \endinput

@@ -22,6 +22,7 @@
 	\keys_set:nn { skilllist } { #1 } 
 	\tl_if_empty:VF \skilllist_label {\textbf{\skilllist_label}:\par}%
 	\begingroup
+    % \dim_if_exist:VT
 	\tl_if_empty:VF \skilllist_indent {\addtolength{\leftskip}{\skilllist_indent}}%
 	\begin{itemize*}[
 		label={},      % No label
@@ -43,8 +44,12 @@
 	colsep   .initial:n   = 0.25em,
 	indent   .dim_set:N   = \l__skills_indent, % Indent
 	indent   .initial:n   = 0em,
+    %
+	skills .meta:nn = {skills/skills}{#1},
+	skills / unknown .code:n = {%
+		\prop_put:NVn \l__skills_skills_prop \l_keys_key_str{#1}%
+	},
 	%
-	
 	align .choice:,
 	align / justified   .code:n = {%
 		\tl_set:Nn \l__skills_align { \sloppy }%
@@ -62,12 +67,27 @@
 		\tl_set:Nn \l__skills_align { \centering }%
 		\bool_set_true:N \l__skills_ragged%
 	 } ,
-	align .initial:n = justified,
-	skills .meta:nn = {skills/skills}{#1},
-	skills / unknown .code:n = {%
-		\prop_put:NVn \l__skills_skills_prop \l_keys_key_str{#1}%
-	},
-
+    align / justify     .meta:n = { align = justified },
+    align / right       .meta:n = { align = raggedright },
+    align / left        .meta:n = { align = raggedleft },
+    align / center      .meta:n = { align = centered },
+	align       .initial:n = justified,
+    justified   .meta:n = { align = justified },
+    justified   .value_forbidden:n = true,
+    justify     .meta:n = { align = justified },
+    justify     .value_forbidden:n = true,
+    raggedright .meta:n = { align = raggedright },
+    raggedright .value_forbidden:n = true,
+    right       .meta:n = { align = raggedright },
+    right       .value_forbidden:n = true,
+    raggedleft  .meta:n = { align = raggedleft },
+    raggedleft  .value_forbidden:n = true,
+    left        .meta:n = { align = raggedleft },
+    left        .value_forbidden:n = true,
+    centered    .meta:n = { align = centered },
+    centered    .value_forbidden:n = true,
+    center      .meta:n = { align = centered },
+    center      .value_forbidden:n = true,
  }
 \prop_new:N \l__skills_skills_prop
 \cs_new:Nn\makeskillitem:n{\item #1}

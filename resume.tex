@@ -104,7 +104,7 @@
 	%\vspace*{0.25\baselineskip}%
 	\section{Skills}%
 	\skills{%
-	    align=justified,
+	    justify,
 		colsep=0.25em,%
 		colratio={0.35,0.4,0.25},%
 		indent=0.75em,%
@@ -120,13 +120,30 @@
 		%\hyphenation{customers}
 		%\vspace{0.5\baselineskip}%
 		\section{Work Experience} % Use & to seperate into array
-		\fwork{Datto}[Remote][March 2021 - October 2022][Software Engineer II][%
-		Worked as part of the SaaS Protection Team, working on a subsection of a distributed system that manages discovering, protecting, and billing Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from their respective SaaS providers. %
+		\setworkexp{%
+			% indent=0.75em, skillindent=0.75em,%
+			indent=0.4in+0.5em, skillindent=1em % "Original" settings
+		}%
+		\workexp{
+			jobtitle=Software Engineer II,
+			company=Datto,
+			location=Remote,
+			start=March 2021, end=October 2022,
+			about={%
+				{Worked as part of the SaaS Protection Team, working on a subsection of a distributed system that manages discovering, protecting, and billing Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from their respective SaaS providers. }%
+				% {Used Python and Ansible to supplement support scripts.} %
+				{Collaborated with team members using Agile methodologies to design, implement, and QA new features. }%
+			 	{Created and supplemented support scripts to help ease the transition of migrating existing data from an old system to the updated system.}%
+			},
+			skills={Scala, TypeScript, PHP Symfony, Python, Elasticsearch, MySQL, PostgresSQL, Ansible/AWX}
+		}%
+		% \fwork{Datto}[Remote][March 2021 - October 2022][Software Engineer II][%
+		%Worked as part of the SaaS Protection Team, working on a subsection of a distributed system that manages discovering, protecting, and billing Microsoft Office 365 and Google Workspace seats when they are created, updated, or deleted from their respective SaaS providers. %
 		% Used Python and Ansible to supplement support scripts. %
-		Collaborated with team members using Agile methodologies to design, implement, and QA new features. %
-		Created and supplemented support scripts to help ease the transition of migrating existing data from an old system to the updated system.%
-		&%
-		{\it Scala, TypeScript, PHP Symfony, Python, Elasticsearch, MySQL, PostgresSQL, Ansible/AWX\nolinebreak}%
+		%Collaborated with team members using Agile methodologies to design, implement, and QA new features. %
+		%Created and supplemented support scripts to help ease the transition of migrating existing data from an old system to the updated system.%
+		%&%
+		%{\it Scala, TypeScript, PHP Symfony, Python, Elasticsearch, MySQL, PostgresSQL, Ansible/AWX\nolinebreak}%
 		%
 		% Tech stack includes: Scala, TypeScript, PHP Symfony, Ruby on Rails, Python, Elasticsearch, MySQL, PostgresSql, Anisble/AWX
 		%
@@ -149,15 +166,20 @@
 %   ◦ Hackathon
 %     ‣ Worked with team of engineers I typically did not work with
 %     ‣ Created ReactJS page in SAAS Protection (mainly a PHP and Twig based framework) using reusable React components created by a separate team (Portal team)
-		]%
 		%
-		\fwork{Bryx}[Rochester, NY][October 2019 - January 2021][Software Engineer][%
-		Designed, developed, and tested new user interfaces for Bryx911 web applications. %
-		Modularized code into reusable packages. %
-		Set up tools and pipelines to automatically build, test, deploy, and generate documentation. %
-		Provided customer support to both Bryx911 and Bryx Station users.%
-		&%
-		{\it Typescript, ReactJS, Kotlin, Python, MongoDB}%
+		\workexp{
+			jobtitle=Software Engineer,
+			company=Bryx,
+			location={Rochester, NY},
+			start=October 2019, end=January 2021,
+			about={%
+				{Designed, developed, and tested new user interfaces for Bryx911 web applications. }%
+				{Modularized code into reusable packages. }%
+				{Set up tools and pipelines to automatically build, test, deploy, and generate documentation. }%
+				{Provided customer support to both Bryx911 and Bryx Station users.}
+			},
+			skills={Typescript, ReactJS, Kotlin, Python, MongoDB}
+		}%
 		% Tech stack includes: Typescript, ReactJS, Kotlin, Python, MongoDB
 %
 % • Did support ("3rd level support")
@@ -182,12 +204,20 @@
 %   ◦ Had to mess with database values often
 % • ”Advanced Customer Success Management”
 % • “Revamped customer onboarding experience”
-		]%
-		\fwork{Calvary Robotics}[Rochester, NY][September 2018 - April 2019][Controls Software Engineer][%
+		\workexp{
+			jobtitle=Controls Software Engineer,
+			company=Calvary Robotics,
+			location={Rochester, NY},
+			start=September 2018, end=April 2019,
+			about={%
+				{Designed and developed a custom, standalone performance tracking application for industrial manufacturing machines. }%
+				{Time-based data from machines was collected and stored by a backend process. }%
+				{Data could then be accessed and displayed via a dashboard. }%
+				{Application dashboard was web-based and used server-side rendering, so that it could be accessed from any device with a browser.}%
+			},
+			skills={JavaScript, Python, NodeJS, ReactJS, InfluxDB}
+		}%
 		% Designed and developed custom OPC UA based, industrial internet of things (IIoT) performance tracking full stack software application for industrial manufacturing machines using Python, NodeJS, ReactJS, SSR, InfluxDB, and other technologies.%
-		Designed and developed a custom, standalone performance tracking application for industrial manufacturing machines. Time-based data from machines was collected and stored by a backend process. Data could then be accessed and displayed via a dashboard. Application dashboard was web-based and used server-side rendering, so that it could be accessed from any device with a browser.%
-		&%
-		{\it JavaScript, Python, NodeJS, ReactJS, InfluxDB}%
 		% Tech stack includes: Javascript, Python, NodeJS, ReactJS, InfluxDB
 		% SSR: server-side rendering
 		% Open Platform Communications Unified Unified Architecture
@@ -202,12 +232,21 @@
 % • Graphs, Responsive design, full stack, code splitting, testing/test
 % development
 % • Components meant to be containerized components
-		]%
-		\fwork{Micron}[Manassas, VA][January 2017 - August 2017][Systems Engineer Co-Op][Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Responsibilities included designing databases, developing REST APIs, and front-end feature development. Set up CI pipelines to generate code documentation form our main codebase. Additionally, set up a system of project tracking for the team.%
-		&%
-		{\it PHP, JavaScript, AngularJS, MySQL, PostgresSQL}%
+		\workexp{
+			jobtitle=Systems Engineer Co-Op,
+			company=Micron,
+			location={Manassas, VA},
+			start=January 2017, end=August 2017,
+			about={%
+				{Designed, developed, and supported internal software systems. }%
+				{Worked with customers in order to design new features and tools. }%
+				{Responsibilities included designing databases, developing REST APIs, and front-end feature development. }%
+				{Set up CI pipelines to generate code documentation form our main codebase. }%
+				{Additionally, set up a system of project tracking for the team.}%
+			},
+			skills={PHP, JavaScript, AngularJS, MySQL, PostgresSQL}
+		}%
 		% Tech stack includes: PHP, Javascript, AngularJS, MySQL, PostgresSQL, NginX
-		]%
 		% Designed, developed, and supported internal software systems. Worked with customers in order to design new features and tools. Work consisted ot designing databases, developing REST APIs, and front-end feature developement.
 		% Also set up CI pipelines to generate documentation for our main code database.
 		% Also worked to set up a system to keep projects documented.
@@ -216,15 +255,28 @@
 % • Internal Service Provider Web app machine statistics lookup
 % • Asset metrics collection & display monitoring (i think)
 % • Helped mentor and onboard team members
-		\fwork{Intuit}[Mountain View, CA][January 2016 - July 2016][Software Engineering Co-op][Worked as part of the QuickBooks Online Payments team. Work primarily consisted of front-end feature development and testing of current features. Also worked on a secondary project creating a browser-based diagnostic tool for customer use.%
-		&%
-		{\it JavaScript, ReactJS}%
-	    ]%
+		\workexp{
+			jobtitle=Software Engineering Co-op,
+			company=Intuit,
+			location={Mountain View, CA},
+			start=January 2016, end=July 2016,
+			about={%
+				{Worked as part of the QuickBooks Online Payments team. }%
+				{Work primarily consisted of front-end feature development and testing of current features. }%
+				{Also worked on a secondary project creating a browser-based diagnostic tool for customer use.}%
+			},
+			skills={JavaScript, ReactJS}
+		}%
 		% Tech stack included: JavaScript, ReactJS
 		%  {\it fixit.intuit.com}
 		% Competed in a group with other co-ops to design a product from scratch. My team won the competition. Codechella
 		%\vspace{-\baselineskip}
-		\fwork{Siemens Industry}[Norcross, GA][June 2012 - July 2012][Business Intern]%
+		\workexp{
+			jobtitle=Business Intern,
+			company=Siemens Industry,
+			location={Norcross, GA},
+			start=June 2012, end=July 2012
+		}%
 	%
 
 		%\vspace*{0.25\baselineskip}%
